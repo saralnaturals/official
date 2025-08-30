@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150" fill="none">
+  <rect width="200" height="150" rx="12" fill="#FFF3E0"/>
+  <circle cx="100" cy="75" r="36" fill="#FFB74D"/>
+  <text x="100" y="120" font-family="Arial" font-size="12" fill="#6D4C41" text-anchor="middle">Soya</text>
+</svg>
+

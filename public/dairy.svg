@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150" fill="none">
+  <rect width="200" height="150" rx="12" fill="#E6F4EA"/>
+  <path d="M60 50h80v60H60z" fill="#A7D7BA"/>
+  <path d="M90 40h20v20H90z" fill="#74C69D"/>
+  <text x="100" y="120" font-family="Arial" font-size="12" fill="#2F5233" text-anchor="middle">Dairy</text>
+</svg>
+

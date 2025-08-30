@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.saral-naturals.example
+
+# Sitemaps
+Sitemap: https://www.saral-naturals.example/sitemap.xml

@@ -1,0 +1,21 @@
+<svg width="600" height="600" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="300" cy="300" r="290" stroke="black" stroke-width="10"/>
+    <circle cx="300" cy="300" r="270" stroke="#8B4513" stroke-width="10"/>
+    <path d="M150 350 C200 300, 400 300, 450 350" stroke="#8B4513" stroke-width="5" fill="none"/>
+    <text x="300" y="450" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="black" text-anchor="middle">Saral</text>
+    <text x="300" y="520" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="black" text-anchor="middle">Naturals</text>
+    <path d="M400 200 C450 150, 500 150, 550 200" fill="white" stroke="black" stroke-width="2"/>
+    <path d="M450 170 C460 160, 470 160, 480 170" fill="black"/>
+    <path d="M470 170 C480 160, 490 160, 500 170" fill="black"/>
+    <circle cx="465" cy="180" r="5" fill="black"/>
+    <circle cx="495" cy="180" r="5" fill="black"/>
+    <path d="M475 220 C470 230, 480 230, 475 220" fill="black"/>
+    <path d="M400 200 L400 250 L450 250 L450 200 Z" fill="black"/>
+    <path d="M500 200 L500 250 L550 250 L550 200 Z" fill="black"/>
+    <path d="M200 250 C180 230, 200 200, 220 200 C240 200, 260 230, 240 250 C220 270, 200 270, 200 250 Z" fill="#D2B48C"/>
+    <path d="M220 230 C200 210, 220 180, 240 180 C260 180, 280 210, 260 230 C240 250, 220 250, 220 230 Z" fill="#D2B48C"/>
+    <path d="M250 230 C270 210, 290 180, 310 180 C330 180, 350 210, 330 230 C310 250, 290 250, 270 230 Z" fill="#D2B48C"/>
+    <path d="M240 200 C250 190, 260 190, 270 200" stroke="green" stroke-width="2" fill="none"/>
+    <path d="M250 190 C260 180, 270 180, 280 190" stroke="green" stroke-width="2" fill="none"/>
+    <path d="M270 200 C280 190, 290 190, 300 200" stroke="green" stroke-width="2" fill="none"/>
+</svg>
