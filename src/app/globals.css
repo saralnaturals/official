@@ -1,13 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5deb325;
+  --foreground: #2d1810;
+  --muted: #8b7355;
+  --muted-foreground: #5d4e3a;
+  --border: #d4b483;
+  --input: #e6d5b8;
+  --primary: #8b4513;
+  --primary-foreground: #f5f5dc;
+  --secondary: #d2691e;
+  --secondary-foreground: #2d1810;
+  --accent: #cd853f;
+  --accent-foreground: #2d1810;
+  --destructive: #dc2626;
+  --destructive-foreground: #f5f5dc;
+  --card: #f5f5dc;
+  --card-foreground: #2d1810;
+  --popover: #f5f5dc;
+  --popover-foreground: #2d1810;
+  --ring: #8b4513;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -16,6 +50,23 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --muted: #404040;
+    --muted-foreground: #a3a3a3;
+    --border: #262626;
+    --input: #262626;
+    --primary: #f97316;
+    --primary-foreground: #0a0a0a;
+    --secondary: #ea580c;
+    --secondary-foreground: #f5f5dc;
+    --accent: #fb923c;
+    --accent-foreground: #0a0a0a;
+    --destructive: #dc2626;
+    --destructive-foreground: #f5f5dc;
+    --card: #171717;
+    --card-foreground: #ededed;
+    --popover: #171717;
+    --popover-foreground: #ededed;
+    --ring: #f97316;
   }
 }
 

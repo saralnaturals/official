@@ -29,7 +29,7 @@ export default function InvestmentsPage() {
     new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n);
 
   return (
-    <main className="bg-stone-50 text-stone-800">
+    <main className="bg-transparent dark:bg-neutral-900 text-amber-900 dark:text-neutral-200">
       <div className="container mx-auto p-4 sm:p-6 md:p-8">
         {/* Hero Section */}
         <InvestmentHero />
@@ -44,14 +44,14 @@ export default function InvestmentsPage() {
         <section className="mb-16">
           <div className="text-center max-w-3xl mx-auto mb-8">
             <h2 className="text-3xl font-bold mb-4">{t("nav.investments")}</h2>
-            <p className="text-stone-600">
+            <p className="text-amber-700 dark:text-neutral-400">
               {language === "hi" 
                 ? "टिकाऊ विकास के लिए तैयार हमारी निवेश योजनाओं का अन्वेषण करें।"
                 : "Explore our investment schemes tailored for sustainable growth."
               }
             </p>
           </div>
-          <div className="overflow-x-auto rounded-xl border border-stone-200 bg-white">
+          <div className="overflow-x-auto rounded-xl border border-amber-200 dark:border-neutral-700 bg-amber-50 dark:bg-neutral-800">
             <table className="w-full min-w-[840px] text-left">
               <thead className="bg-green-900 text-white">
                 <tr>
@@ -73,9 +73,9 @@ export default function InvestmentsPage() {
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-stone-200">
+              <tbody className="divide-y divide-amber-200 dark:divide-neutral-700">
                 {rows.map((r) => (
-                  <tr key={r.amount} className="bg-white">
+                  <tr key={r.amount} className="bg-amber-50 dark:bg-neutral-800">
                     <td className="px-4 py-3 font-medium">{formatINR(r.amount)}</td>
                     <td className="px-4 py-3">{r.share}</td>
                     <td className="px-4 py-3">{formatINR(r.p30)}</td>
@@ -94,12 +94,12 @@ export default function InvestmentsPage() {
               <Link 
                 key={s.slug} 
                 href={`/investments/${s.slug}`} 
-                className="rounded-lg border border-stone-200 p-4 hover:bg-stone-50 bg-white"
+                className="rounded-lg border border-amber-200 dark:border-neutral-700 p-4 hover:bg-amber-100 dark:hover:bg-neutral-700 bg-amber-50 dark:bg-neutral-800 transition-colors"
               >
                 <h2 className="text-lg font-medium">
                   {t("nav.investments")} · {s.title.en}
                 </h2>
-                <p className="mt-1 text-sm text-stone-600">
+                <p className="mt-1 text-sm text-amber-700 dark:text-neutral-400">
                   {s.summary.en}
                 </p>
               </Link>

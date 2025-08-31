@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { LanguageProvider, SupportedLanguage } from "@/lib/i18n";
+import LoadingSpinner from "./LoadingSpinner";
 
 const LANG_KEY = "saral-site.language";
 
@@ -28,11 +29,8 @@ export default function ClientGate({
   const content = useMemo(() => {
     if (!ready) {
       return (
-        <div className="grid min-h-screen place-items-center">
-          <div className="animate-pulse rounded-lg border border-neutral-200 p-6 text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
-            Loading…
-          </div>
-        </div>
+       <LoadingSpinner isLoading = {!ready} 
+       duration = {3000} />
       );
     }
     return (

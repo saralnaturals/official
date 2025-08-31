@@ -85,6 +85,15 @@ export default function InvestmentCalculator() {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
+      x: {
+        ticks: {
+          maxRotation: 45,
+          minRotation: 0,
+          font: {
+            size: 11
+          }
+        }
+      },
       y: {
         type: 'linear' as const,
         beginAtZero: true,
@@ -92,6 +101,9 @@ export default function InvestmentCalculator() {
           callback: function(this: unknown, tickValue: string | number) {
             const value = typeof tickValue === 'string' ? parseFloat(tickValue) : tickValue;
             return '₹' + value.toLocaleString('en-IN');
+          },
+          font: {
+            size: 11
           }
         }
       }
@@ -120,27 +132,27 @@ export default function InvestmentCalculator() {
   const selectedInvestment = investmentData.find(d => d.amount === selectedAmount);
 
   return (
-    <section className="mb-16 bg-white p-6 sm:p-8 rounded-lg shadow-md border border-stone-200">
-      <div className="text-center max-w-3xl mx-auto mb-8">
-        <h2 className="text-3xl font-bold mb-4">{t('investment.calculator.title')}</h2>
-        <p className="text-stone-600">
+    <section className="mb-16 bg-amber-50 dark:bg-neutral-800 p-4 sm:p-6 md:p-8 rounded-lg shadow-md border border-amber-200 dark:border-neutral-700">
+      <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">{t('investment.calculator.title')}</h2>
+        <p className="text-amber-700 dark:text-neutral-400 text-sm sm:text-base">
           {t('investment.calculator.subtitle')}
         </p>
       </div>
 
-      <div className="mb-8">
-        <label className="text-center block font-semibold mb-4 text-lg">
+      <div className="mb-6 sm:mb-8">
+        <label className="text-center block font-semibold mb-3 sm:mb-4 text-base sm:text-lg">
           {t('investment.calculator.select')}
         </label>
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+        <div className="flex flex-wrap justify-center gap-1 sm:gap-2 md:gap-3">
           {investmentData.map((data) => (
             <button
               key={data.amount}
               onClick={() => setSelectedAmount(data.amount)}
-              className={`px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base font-medium rounded-md transition-colors duration-200 border ${
+              className={`px-2 py-1 sm:px-3 sm:py-2 md:px-4 md:py-2 text-xs sm:text-sm md:text-base font-medium rounded-md transition-colors duration-200 border ${
                 selectedAmount === data.amount
                   ? 'bg-orange-600 text-white border-orange-600'
-                  : 'bg-white text-stone-700 border-stone-300 hover:bg-orange-100 hover:border-orange-300'
+                  : 'bg-amber-100 dark:bg-neutral-700 text-amber-900 dark:text-neutral-200 border-amber-300 dark:border-neutral-600 hover:bg-amber-200 dark:hover:bg-orange-900/20 hover:border-orange-300'
               }`}
             >
               ₹{data.amount.toLocaleString('en-IN')}
@@ -149,42 +161,42 @@ export default function InvestmentCalculator() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <div className="grid grid-cols-2 gap-4 text-center mb-6">
-            <div className="bg-stone-100 p-4 rounded-lg">
-              <h4 className="text-sm font-semibold text-stone-500">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+        <div className="order-2 lg:order-1">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 text-center mb-4 sm:mb-6">
+            <div className="bg-amber-100 dark:bg-neutral-700 p-3 sm:p-4 rounded-lg">
+              <h4 className="text-xs sm:text-sm font-semibold text-amber-700 dark:text-neutral-400">
                 {t('investment.calculator.profitShare')}
               </h4>
-              <p className="text-2xl sm:text-3xl font-bold text-orange-600">
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-orange-600">
                 {selectedInvestment?.share.toFixed(2)}%
               </p>
             </div>
-            <div className="bg-stone-100 p-4 rounded-lg">
-              <h4 className="text-sm font-semibold text-stone-500">
+            <div className="bg-amber-100 dark:bg-neutral-700 p-3 sm:p-4 rounded-lg">
+              <h4 className="text-xs sm:text-sm font-semibold text-amber-700 dark:text-neutral-400">
                 {t('investment.calculator.potentialROI')}
               </h4>
-              <p className="text-2xl sm:text-3xl font-bold text-orange-600">
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold text-orange-600">
                 up to 200%
               </p>
-              <p className="text-xs text-stone-500">
+              <p className="text-xs text-amber-700 dark:text-neutral-400">
                 {t('investment.calculator.roiTime')}
               </p>
             </div>
           </div>
-          <div className="bg-stone-100 p-4 rounded-lg text-center">
-            <h4 className="text-sm font-semibold text-stone-500">
+          <div className="bg-amber-100 dark:bg-neutral-700 p-3 sm:p-4 rounded-lg text-center">
+            <h4 className="text-xs sm:text-sm font-semibold text-amber-700 dark:text-neutral-400">
               {t('investment.calculator.commencement')}
             </h4>
-            <p className="text-xl sm:text-2xl font-bold text-orange-600">
+            <p className="text-lg sm:text-xl md:text-2xl font-bold text-orange-600">
               {t('investment.calculator.commencementTime')}
             </p>
-            <p className="text-xs text-stone-500">
+            <p className="text-xs text-amber-700 dark:text-neutral-400">
               {t('investment.calculator.fromInvestment')}
             </p>
           </div>
         </div>
-        <div className="h-[300px] md:h-[350px]">
+        <div className="order-1 lg:order-2 h-[250px] sm:h-[300px] md:h-[350px] w-full">
           {chartData && <Bar data={chartData} options={chartOptions} />}
         </div>
       </div>

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeProviderClient from "@/components/ThemeProviderClient";
 import ClientGate from "@/components/ClientGate";
+import InitialLoadingWrapper from "@/components/InitialLoadingWrapper";
 import en from "@/lib/locales/en.json";
 import hi from "@/lib/locales/hi.json";
 import Header from "@/components/Header";
@@ -19,16 +20,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Saral Naturals",
-  description: "Simple, Sustainable, and Natural",
-  metadataBase: new URL("https://www.saralnaturals.com"),
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+export const metadata: Metadata = {
+  title: "Saral Naturals - Premium Dairy Products",
+  description: "Discover premium dairy products from Saral Naturals. Sustainable farming, organic practices, and high-quality products.",
+  keywords: "dairy, milk, organic, sustainable, farming, natural products",
+  authors: [{ name: "Saral Naturals" }],
+  creator: "Saral Naturals",
+  publisher: "Saral Naturals",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://saral-naturals.com"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Saral Naturals",
-    description: "Simple, Sustainable, and Natural",
-    type: "website",
-    url: "https://www.saralnaturals.com/",
+    title: "Saral Naturals - Premium Dairy Products",
+    description: "Discover premium dairy products from Saral Naturals. Sustainable farming, organic practices, and high-quality products.",
+    url: "https://saral-naturals.com",
+    siteName: "Saral Naturals",
     images: [
       {
         url: "/og.png",
@@ -37,18 +49,26 @@ export const metadata = {
         alt: "Saral Naturals",
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
-  keywords: [
-    "Saral Naturals",
-    "sustainable agriculture",
-    "natural products",
-    "investment schemes"
-  ],
-  other: {
-    "ai-topic": "sustainable agriculture, natural products, investment schemes",
-    "ai-brand": "Saral Naturals",
-    "ai-locale": "en,hi"
-  }
+  twitter: {
+    card: "summary_large_image",
+    title: "Saral Naturals - Premium Dairy Products",
+    description: "Discover premium dairy products from Saral Naturals. Sustainable farming, organic practices, and high-quality products.",
+    images: ["/og.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -61,10 +81,12 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProviderClient>
           <ClientGate resources={{ en: en as Record<string, string>, hi: hi as Record<string, string> }}>
-            <Header />
-            {children}
-            <Footer />
-            <LanguageModal />
+            <InitialLoadingWrapper>
+              <Header />
+              {children}
+              <Footer />
+              <LanguageModal />
+            </InitialLoadingWrapper>
           </ClientGate>
         </ThemeProviderClient>
       </body>

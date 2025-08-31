@@ -64,16 +64,16 @@ export default function TermsAccordion() {
     <section className="mb-16">
       <div className="text-center max-w-3xl mx-auto mb-12">
         <h2 className="text-3xl font-bold mb-4">{t('investment.terms.title')}</h2>
-        <p className="text-stone-600">
+        <p className="text-amber-700 dark:text-neutral-400">
           {t('investment.terms.subtitle')}
         </p>
       </div>
       <div className="space-y-4 max-w-4xl mx-auto">
         {termsData.map((term) => (
-          <div key={term.key} className="border border-stone-200 rounded-lg bg-white">
+          <div key={term.key} className="border border-amber-200 dark:border-neutral-700 rounded-lg bg-amber-50 dark:bg-neutral-800">
             <button
               onClick={() => toggleTerm(term.key)}
-              className="w-full text-left p-4 font-semibold flex justify-between items-center hover:bg-stone-50 transition-colors duration-200"
+              className="w-full text-left p-4 font-semibold flex justify-between items-center hover:bg-amber-100 dark:hover:bg-neutral-700 transition-colors duration-200"
             >
               <span>{term.title}</span>
               <svg 
@@ -93,7 +93,7 @@ export default function TermsAccordion() {
                 activeTerm === term.key ? 'max-h-[500px]' : 'max-h-0'
               }`}
             >
-              <p className="p-4 pt-0 text-stone-600 text-sm">{term.content}</p>
+              <p className="p-4 pt-0 text-amber-700 dark:text-neutral-400 text-sm">{term.content}</p>
             </div>
           </div>
         ))}
