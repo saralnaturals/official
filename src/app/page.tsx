@@ -26,10 +26,22 @@ export default function Home() {
       subtitle: "Organic practices that respect nature"
     },
     {
+      src: "/homePage/productionHouse.png",
+      alt: "Saral Naturals Production House",
+      title: "Production House",
+      subtitle: "Hygienic production and dispatching"
+    },
+    {
       src: "/brand/homPageImageOther.png",
       alt: "Natural Products",
       title: "Pure Natural Products",
       subtitle: "Handcrafted with care and tradition"
+    },
+    {
+      src: "/homePage/productionHouseSecondView.png",
+      alt: "Saral Naturals Production House Internal View",
+      title: "Inside Production House ",
+      subtitle: "Clean and hygienic production environment"
     },
     {
       src: "/premiumDairy.png",
@@ -66,7 +78,7 @@ export default function Home() {
             </div>
 
           </div>
-          <HeroCarousel images={heroImages} autoChangeInterval={4000} />
+          <HeroCarousel images={heroImages} autoChangeInterval={8000} />
         </section>
 
         <section className="py-10">

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useCycle } from 'framer-motion';
 
 interface LoadingSpinnerProps {
   isLoading?: boolean;
@@ -11,13 +11,21 @@ interface LoadingSpinnerProps {
   progress?: number; // New prop for external progress control
 }
 
-export default function LoadingSpinner({ 
-  isLoading = true, 
-  onComplete, 
+export default function LoadingSpinner({
+  isLoading = true,
+  onComplete,
   duration = 3000,
   progress
 }: LoadingSpinnerProps) {
   const [liquidProgress, setLiquidProgress] = useState(0);
+  const [loadingTextCycle, cycleLoadingText] = useCycle(
+    "Loading...",
+    "लोड हो रहा है..."
+  );
+  const [subtitleCycle, cycleSubtitle] = useCycle(
+    "Preparing fresh dairy experience",
+    "ताजा डेयरी अनुभव तैयार कर रहे हैं"
+  );
 
   useEffect(() => {
     if (!isLoading) return;
@@ -60,6 +68,18 @@ export default function LoadingSpinner({
     };
   }, [isLoading, duration, onComplete, progress]);
 
+  // Cycle text every 3 seconds
+  useEffect(() => {
+    if (!isLoading) return;
+
+    const textInterval = setInterval(() => {
+      cycleLoadingText();
+      cycleSubtitle();
+    }, 3000);
+
+    return () => clearInterval(textInterval);
+  }, [isLoading, cycleLoadingText, cycleSubtitle]);
+
   if (!isLoading) return null;
 
   return (
@@ -69,7 +89,7 @@ export default function LoadingSpinner({
         <div className="relative mx-auto mb-6 h-32 w-32">
           {/* Glass Effect Outer Circle */}
           <div className="absolute inset-0 rounded-full border-4 border-amber-300/50 dark:border-neutral-700 shadow-2xl bg-blue-100 dark:bg-neutral-800 backdrop-blur-sm"></div>
-          
+
           {/* Milk Fill with Glass Effect */}
           <motion.div
             className="absolute inset-1 rounded-full bg-gradient-to-t from-white/90 via-white/80 to-white/70 overflow-hidden shadow-inner border border-white/30 dark:border-gray-600 backdrop-blur-sm"
@@ -87,7 +107,7 @@ export default function LoadingSpinner({
           >
             {/* Milk Foam Effect */}
             <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-white/90 to-transparent opacity-90 rounded-t-full"></div>
-            
+
             {/* Milk Bubbles Effect */}
             <div className="absolute inset-0 opacity-70">
               {[...Array(8)].map((_, i) => (
@@ -153,6 +173,7 @@ export default function LoadingSpinner({
                 height={80}
                 className="object-contain drop-shadow-lg"
                 priority
+                style={{ filter: 'drop-shadow(1px 1px 0px #f5f5dc) drop-shadow(-1px -1px 0px #f5f5dc)' }}
               />
             </motion.div>
           </div>
@@ -188,31 +209,24 @@ export default function LoadingSpinner({
           className="text-center"
         >
           <motion.h3
+            key={loadingTextCycle}
             className="text-xl font-semibold text-amber-900 dark:text-neutral-200 mb-2"
-            animate={{
-              opacity: [0.7, 1, 0.7],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
           >
-            Loading...
+            {loadingTextCycle}
           </motion.h3>
           <motion.p
+            key={subtitleCycle}
             className="text-sm text-amber-700 dark:text-neutral-400"
-            animate={{
-              opacity: [0.5, 1, 0.5],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.5
-            }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Preparing fresh dairy experience
+            {subtitleCycle}
           </motion.p>
         </motion.div>
 
