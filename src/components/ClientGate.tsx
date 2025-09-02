@@ -22,7 +22,7 @@ export default function ClientGate({
     const resolved: SupportedLanguage = stored ?? (navigator.language.toLowerCase().startsWith("hi") ? "hi" : "en");
     // Persist to cookie and localStorage
     document.cookie = `${LANG_KEY}=${resolved}; path=/; max-age=${60 * 60 * 24 * 365}`;
-    window.localStorage.setItem(LANG_KEY, resolved);
+    // window.localStorage.setItem(LANG_KEY, resolved);
     setReady(true);
   }, []);
 
