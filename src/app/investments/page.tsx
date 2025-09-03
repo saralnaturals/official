@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/lib/i18n";
 import Link from "next/link";
 import { investmentSchemes } from "@/data/investments";
+import { useAuth } from "@/hooks/useAuth";
 
 import InvestmentHero from "@/components/InvestmentHero";
 import BusinessOverview from "@/components/BusinessOverview";
@@ -13,6 +14,32 @@ import InvestmentFooter from "@/components/InvestmentFooter";
 
 export default function InvestmentsPage() {
   const { t, language } = useLanguage();
+  const { user, loading } = useAuth();
+  const [userInvestments, setUserInvestments] = useState<Record<string, unknown>[]>([]);
+  const [loadingInvestments, setLoadingInvestments] = useState(false);
+
+  useEffect(() => {
+    if (user && !loading) {
+      fetchUserInvestments();
+    }
+  }, [user, loading]);
+
+  const fetchUserInvestments = async () => {
+    if (!user) return;
+    
+    setLoadingInvestments(true);
+    try {
+      const response = await fetch('/api/investments/user');
+      const data = await response.json();
+      if (data.success) {
+        setUserInvestments(data.investments);
+      }
+    } catch (error) {
+      console.error('Failed to fetch investments:', error);
+    } finally {
+      setLoadingInvestments(false);
+    }
+  };
 
   const rows = [
     { amount: 25000, share: "0.25%", p30: 7500, p15: 3750 },
@@ -31,6 +58,80 @@ export default function InvestmentsPage() {
   return (
     <main className="bg-transparent dark:bg-neutral-900 text-amber-900 dark:text-neutral-200">
       <div className="container mx-auto p-4 sm:p-6 md:p-8">
+        {/* User Investment Status */}
+        {user && !loading && (
+          <div className="mb-8">
+            {loadingInvestments ? (
+              <div className="text-center py-8">
+                <p className="text-amber-700 dark:text-neutral-400">Loading your investments...</p>
+              </div>
+            ) : userInvestments.length === 0 ? (
+              <div className="bg-amber-50 dark:bg-neutral-800 border border-amber-200 dark:border-neutral-700 rounded-lg p-6 text-center">
+                <h2 className="text-xl font-semibold text-amber-900 dark:text-neutral-100 mb-2">
+                  Welcome, {user.name}!
+                </h2>
+                <p className="text-amber-700 dark:text-neutral-400 mb-4">
+                  You haven&apos;t made any investments yet. Start your investment journey with Saral Naturals.
+                </p>
+                <Link
+                  href="/contact"
+                  className="inline-block bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md font-medium transition-colors"
+                >
+                  Invest Now
+                </Link>
+              </div>
+            ) : (
+              <div className="bg-white dark:bg-neutral-800 border border-amber-200 dark:border-neutral-700 rounded-lg p-6">
+                <h2 className="text-xl font-semibold text-amber-900 dark:text-neutral-100 mb-4">
+                  Your Investments
+                </h2>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left">
+                    <thead className="bg-green-50 dark:bg-green-900/20">
+                      <tr>
+                        <th className="px-4 py-3 text-sm font-semibold text-green-700 dark:text-green-400">
+                          Investment Amount
+                        </th>
+                        <th className="px-4 py-3 text-sm font-semibold text-green-700 dark:text-green-400">
+                          Profit Share
+                        </th>
+                        <th className="px-4 py-3 text-sm font-semibold text-green-700 dark:text-green-400">
+                          Investment Date
+                        </th>
+                        <th className="px-4 py-3 text-sm font-semibold text-green-700 dark:text-green-400">
+                          Status
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-amber-200 dark:divide-neutral-700">
+                      {userInvestments.map((investment: Record<string, unknown>) => (
+                        <tr key={investment._id} className="bg-white dark:bg-neutral-800">
+                          <td className="px-4 py-3 font-medium">
+                            ₹{(investment.amount as number).toLocaleString()}
+                          </td>
+                          <td className="px-4 py-3">{investment.profitShare}%</td>
+                          <td className="px-4 py-3">
+                            {new Date(investment.investmentDate as string).toLocaleDateString()}
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className={`px-2 py-1 text-xs rounded-full ${
+                              investment.status === 'active' 
+                                ? 'bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400'
+                                : 'bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400'
+                            }`}>
+                              {investment.status as string}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Hero Section */}
         <InvestmentHero />
 
