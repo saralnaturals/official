@@ -9,6 +9,7 @@ import hi from "@/lib/locales/hi.json";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LanguageModal from "@/components/ui/LanguageModal";
+import { AuthProvider } from '@/context/AuthContext';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -82,10 +83,12 @@ export default function RootLayout({
         <InitialLoadingWrapper>
           <ThemeProviderClient>
             <ClientGate resources={{ en: en as Record<string, string>, hi: hi as Record<string, string> }}>
-              <Header />
-              {children}
-              <Footer />
-              <LanguageModal />
+              <AuthProvider>
+                <Header />
+                {children}
+                <Footer />
+                <LanguageModal />
+              </AuthProvider>
             </ClientGate>
           </ThemeProviderClient>
         </InitialLoadingWrapper>
