@@ -9,7 +9,7 @@ function getTokenFromReq(req: Request) {
 	return req.headers.get('cookie')?.split('sn_token=')[1]?.split(';')[0] || null;
 }
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, ctx: any) {
 	try {
 		const token = getTokenFromReq(req);
 		const payload: any = token ? verifyToken(token) : null;
@@ -17,9 +17,11 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 
 		const client = await getMongoClient();
 		const users = client.db('saral').collection('users');
-		let oid: ObjectId;
-		try { oid = new ObjectId(params.id); } catch (e) { return NextResponse.json({ error: 'Invalid id' }, { status: 400 }); }
-		const u = await users.findOne({ _id: oid });
+	const id = ctx?.params?.id;
+	if (!id) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
+	let oid: ObjectId;
+	try { oid = new ObjectId(id); } catch (e) { return NextResponse.json({ error: 'Invalid id' }, { status: 400 }); }
+	const u = await users.findOne({ _id: oid });
 		if (!u) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 		if (u.password) delete u.password;
 		return NextResponse.json({ user: u });
@@ -28,7 +30,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
 	}
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, ctx: any) {
 	try {
 		const token = getTokenFromReq(req);
 		const payload: any = token ? verifyToken(token) : null;
@@ -36,9 +38,11 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
 
 		const client = await getMongoClient();
 		const users = client.db('saral').collection('users');
-		let oid: ObjectId;
-		try { oid = new ObjectId(params.id); } catch (e) { return NextResponse.json({ error: 'Invalid id' }, { status: 400 }); }
-		const res = await users.deleteOne({ _id: oid });
+	const id = ctx?.params?.id;
+	if (!id) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
+	let oid: ObjectId;
+	try { oid = new ObjectId(id); } catch (e) { return NextResponse.json({ error: 'Invalid id' }, { status: 400 }); }
+	const res = await users.deleteOne({ _id: oid });
 		if (!res.deletedCount) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 		return NextResponse.json({ ok: true });
 	} catch (e) {
