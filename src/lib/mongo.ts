@@ -2,7 +2,7 @@
 import { MongoClient } from 'mongodb';
 /* eslint-disable */
 // Use provided application code by default. Replace with env var in production.
-const uri = process.env.MONGO_API_KEY ;
+const uri = process.env.MONGO_API_KEY || '';
 
 const cached: { client: MongoClient | null } = { client: null };
 
