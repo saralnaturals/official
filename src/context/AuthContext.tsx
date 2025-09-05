@@ -60,6 +60,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = useCallback(async (email: string, password: string) => {
+    // try to fetch server public key for client-side encryption
+    try {
+      const pkRes = await fetch('/api/auth/public-key');
+      if (pkRes.ok) {
+        const pkJson = await pkRes.json();
+        const pem = pkJson?.publicKey;
+        if (pem) {
+          try {
+            // import PEM public key
+            const clean = pem.replace(/-----BEGIN PUBLIC KEY-----|-----END PUBLIC KEY-----|\n/g, '');
+            const binaryDer = Uint8Array.from(atob(clean), c => c.charCodeAt(0));
+            const cryptoKey = await window.crypto.subtle.importKey('spki', binaryDer.buffer, { name: 'RSA-OAEP', hash: 'SHA-256' }, false, ['encrypt']);
+            const encoded = new TextEncoder().encode(password);
+            const cipher = await window.crypto.subtle.encrypt({ name: 'RSA-OAEP' }, cryptoKey, encoded);
+            const b64 = btoa(String.fromCharCode(...new Uint8Array(cipher)));
+            const res = await fetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password: b64, encrypted: true }), headers: { 'Content-Type': 'application/json' }, credentials: 'include' });
+            if (!res.ok) throw new Error('Login failed');
+            const me = await fetch('/api/auth/me', { credentials: 'include' });
+            const d = await me.json();
+            if (d.user) { setUser(d.user); persist(d.user); return d.user; }
+            setUser(null); persist(null); return null;
+          } catch (e) {
+            // encryption failed, fallthrough to plaintext
+            if (process.env.NODE_ENV !== 'production') console.log('client-side encryption failed, falling back to plaintext');
+          }
+        }
+      }
+    } catch (e) {
+      // ignore and fallback
+    }
+
     const res = await fetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password }), headers: { 'Content-Type': 'application/json' }, credentials: 'include' });
     if (!res.ok) throw new Error('Login failed');
     const me = await fetch('/api/auth/me', { credentials: 'include' });
