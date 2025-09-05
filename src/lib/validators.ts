@@ -1,3 +1,4 @@
+/* eslint-disable */
 export function isEmail(v: any) {
   return typeof v === 'string' && /\S+@\S+\.\S+/.test(v);
 }

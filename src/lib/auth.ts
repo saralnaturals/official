@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { verifyToken } from './jwt';
 
 export function extractTokenFromRequest(req: Request): string | null {

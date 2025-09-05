@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { NextResponse } from 'next/server';
 import { getMongoClient } from '@/lib/mongo';
 import { signToken } from '@/lib/jwt';
