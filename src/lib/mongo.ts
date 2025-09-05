@@ -1,9 +1,8 @@
 // Minimal Mongo helper for Next.js API routes
 import { MongoClient } from 'mongodb';
-
+/* eslint-disable */
 // Use provided application code by default. Replace with env var in production.
-const FALLBACK_URI = "mongodb+srv://saralnaturals68_db_user:<db_password>@cluster0.0pk9uwm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-const uri = process.env.MONGODB_URI || FALLBACK_URI;
+const uri = process.env.MONGO_API_KEY ;
 
 const cached: { client: MongoClient | null } = { client: null };
 
