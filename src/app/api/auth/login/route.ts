@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       if (process.env.NODE_ENV !== 'production') console.log('[auth/login] no user found for', email);
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
-
+console.log(password, user.password);
     const match = user.password ? bcrypt.compareSync(password, user.password) : false;
     if (!match) {
       if (process.env.NODE_ENV !== 'production') console.log('[auth/login] password mismatch for', email);
