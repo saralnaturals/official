@@ -11,7 +11,7 @@ export default function ChangePassword() {
 
   async function onSubmit(data: { otp: string; password: string }) {
     // Verify OTP with backend and change password
-    if (process.env.NODE_ENV !== 'production') console.log('Change password requested');
+    console.log('Change password', data);
     setDone(true);
   }
 
