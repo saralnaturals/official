@@ -83,19 +83,20 @@ export default function LoadingSpinner({
   if (!isLoading) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-amber-50 dark:bg-neutral-900">
-      <div className="text-center">
+    <div id="loader" className="fixed inset-0 z-50 flex items-center justify-center bg-amber-50 dark:bg-neutral-900">
+      < div className="text-center" >
         {/* Circular Container */}
-        <div className="relative mx-auto mb-6 h-32 w-32">
+        < div className="relative mx-auto mb-6 h-32 w-32" >
           {/* Glass Effect Outer Circle */}
-          <div className="absolute inset-0 rounded-full border-4 border-amber-300/50 dark:border-neutral-700 shadow-2xl bg-blue-100 dark:bg-neutral-800 backdrop-blur-sm"></div>
+          < div className="absolute inset-0 rounded-full border-4 border-amber-300/50 dark:border-neutral-700 shadow-2xl bg-blue-100 dark:bg-neutral-800 backdrop-blur-sm" ></div >
 
           {/* Milk Fill with Glass Effect */}
-          <motion.div
+          < motion.div
             className="absolute inset-1 rounded-full bg-gradient-to-t from-white/90 via-white/80 to-white/70 overflow-hidden shadow-inner border border-white/30 dark:border-gray-600 backdrop-blur-sm"
             style={{
               clipPath: `polygon(0 ${100 - liquidProgress}%, 100% ${100 - liquidProgress}%, 100% 100%, 0 100%)`
-            }}
+            }
+            }
             animate={{
               scale: [1, 1.02, 1],
             }}
@@ -106,60 +107,64 @@ export default function LoadingSpinner({
             }}
           >
             {/* Milk Foam Effect */}
-            <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-white/90 to-transparent opacity-90 rounded-t-full"></div>
+            < div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-white/90 to-transparent opacity-90 rounded-t-full" ></div >
 
             {/* Milk Bubbles Effect */}
-            <div className="absolute inset-0 opacity-70">
-              {[...Array(8)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-1.5 h-1.5 bg-white rounded-full shadow-md border-2 border-blue-200 dark:border-white/50"
-                  style={{
-                    left: `${15 + i * 12}%`,
-                    top: `${25 + (i % 3) * 15}%`,
-                  }}
-                  animate={{
-                    y: [-8, 8, -8],
-                    opacity: [0.5, 1, 0.5],
-                    scale: [0.8, 1.2, 0.8],
-                  }}
-                  transition={{
-                    duration: 2.5 + i * 0.3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.15,
-                  }}
-                />
-              ))}
-            </div>
+            < div className="absolute inset-0 opacity-70" >
+              {
+                [...Array(8)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1.5 h-1.5 bg-white rounded-full shadow-md border-2 border-blue-200 dark:border-white/50"
+                    style={{
+                      left: `${15 + i * 12}%`,
+                      top: `${25 + (i % 3) * 15}%`,
+                    }}
+                    animate={{
+                      y: [-8, 8, -8],
+                      opacity: [0.5, 1, 0.5],
+                      scale: [0.8, 1.2, 0.8],
+                    }}
+                    transition={{
+                      duration: 2.5 + i * 0.3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.15,
+                    }}
+                  />
+                ))
+              }
+            </div >
 
             {/* Milk Surface Ripples */}
-            <div className="absolute top-2 left-1/2 transform -translate-x-1/2">
-              {[...Array(3)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 bg-blue-300 rounded-full border border-blue-400 dark:bg-white/60 dark:border-white/40"
-                  style={{
-                    left: `${i * 8 - 8}px`,
-                    top: `${i * 4 - 4}px`,
-                  }}
-                  animate={{
-                    scale: [0.5, 1.5, 0.5],
-                    opacity: [0.4, 0.8, 0.4],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.5,
-                  }}
-                />
-              ))}
-            </div>
-          </motion.div>
+            < div className="absolute top-2 left-1/2 transform -translate-x-1/2" >
+              {
+                [...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 bg-blue-300 rounded-full border border-blue-400 dark:bg-white/60 dark:border-white/40"
+                    style={{
+                      left: `${i * 8 - 8}px`,
+                      top: `${i * 4 - 4}px`,
+                    }}
+                    animate={{
+                      scale: [0.5, 1.5, 0.5],
+                      opacity: [0.4, 0.8, 0.4],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: i * 0.5,
+                    }}
+                  />
+                ))
+              }
+            </div >
+          </motion.div >
 
           {/* Logo Container - Always Visible */}
-          <div className="absolute inset-4 flex items-center justify-center">
+          < div className="absolute inset-4 flex items-center justify-center" >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -176,10 +181,10 @@ export default function LoadingSpinner({
                 style={{ filter: 'drop-shadow(1px 1px 0px #f5f5dc) drop-shadow(-1px -1px 0px #f5f5dc)' }}
               />
             </motion.div>
-          </div>
+          </div >
 
           {/* Progress Ring with Glass Effect */}
-          <svg className="absolute inset-0 h-full w-full -rotate-90">
+          < svg className="absolute inset-0 h-full w-full -rotate-90" >
             <circle
               cx="50%"
               cy="50%"
@@ -198,11 +203,11 @@ export default function LoadingSpinner({
                 <stop offset="100%" stopColor="rgba(217, 119, 6, 1)" />
               </linearGradient>
             </defs>
-          </svg>
-        </div>
+          </svg >
+        </div >
 
         {/* Loading Text */}
-        <motion.div
+        < motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
@@ -228,18 +233,18 @@ export default function LoadingSpinner({
           >
             {subtitleCycle}
           </motion.p>
-        </motion.div>
+        </motion.div >
 
         {/* Progress Percentage */}
-        <motion.div
+        < motion.div
           className="mt-4 text-sm font-medium text-amber-800 dark:text-neutral-300"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.6 }}
         >
-          {Math.round(liquidProgress)}%
-        </motion.div>
-      </div>
-    </div>
+          {Math.round(liquidProgress)} %
+        </motion.div >
+      </div >
+    </div >
   );
 }
