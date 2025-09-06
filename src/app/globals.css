@@ -46,7 +46,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -68,7 +68,7 @@
     --popover-foreground: #ededed;
     --ring: #f97316;
   }
-} */
+}
 
 body {
   background: var(--background);
