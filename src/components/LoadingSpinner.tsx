@@ -31,7 +31,7 @@ export default function LoadingSpinner({
   useEffect(() => {
     if (!isLoading) return;
 
-    let initialInterval: NodeJS.Timeout;
+    const initialInterval: NodeJS.Timeout;
     let mainInterval: NodeJS.Timeout;
     let completeTimer: NodeJS.Timeout;
 
