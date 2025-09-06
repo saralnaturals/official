@@ -64,7 +64,7 @@ export default function Header() {
             {user ? (
               <button
                 onClick={() => setProfileOpen((v) => !v)}
-                className="min-[812px]:flex hidden items-center gap-2 rounded-md hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
+                className="min-[812px]:flex hidden items-center gap-2 rounded-md p-2 hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
               >
                 <div className="h-6 w-6 rounded-full bg-amber-700 text-white flex items-center justify-center text-xs">{user.name ? user.name[0] : 'A'}</div>
                 <span className="text-sm font-medium w-18 text-ellipsis text-left">Hi, {user.name?.split(" ")[0] ?? ''}</span>
@@ -98,7 +98,7 @@ export default function Header() {
           <div className="relative">
             <button
               onClick={() => setOpen((v) => !v)}
-              className="flex items-center gap-1 rounded-md hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
+              className="flex items-center gap-1 rounded-md p-2 hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
             >
               <Globe size={18} />
               <span className="text-xs uppercase font-medium">{language}</span>
