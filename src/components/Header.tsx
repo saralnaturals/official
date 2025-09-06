@@ -48,7 +48,7 @@ export default function Header() {
             className="max-[400px]:w-20"
             style={{ filter: 'drop-shadow(1px 1px 0px #f5f5dc) drop-shadow(-1px -1px 0px #f5f5dc)' }}
           />
-          <span className="max-[400px]:text-sm max-[450px]:text-base  text-xl">{t("site.name")}</span>
+          <span className="max-[400px]:text-sm text-base">{t("site.name")}</span>
         </Link>
 
         {/* Desktop nav */}
@@ -152,7 +152,7 @@ export default function Header() {
                     className="max-[400px]:w-20"
                     style={{ filter: 'drop-shadow(1px 1px 0px #f5f5dc) drop-shadow(-1px -1px 0px #f5f5dc)' }}
                   />
-                  <span className="max-[400px]:text-sm max-[450px]:text-base  text-xl">{t("site.name")}</span>
+                  <span className="max-[400px]:text-sm text-base ">{t("site.name")}</span>
                 </Link>
                 <button onClick={() => setDrawerOpen(false)} className="p-2 flex items-center rounded-md hover:bg-amber-200 dark:hover:bg-neutral-800">
                   <div className="flex-1" aria-label="Toggle menu" onClick={() => setDrawerOpen(false)} >
