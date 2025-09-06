@@ -5,6 +5,7 @@ import LoadingSpinner from "./LoadingSpinner";
 export default function InitialLoadingWrapper() {
   const [isVisible, setIsVisible] = useState(true);
   const [progress, setProgress] = useState(0);
+  
   if (typeof window === "undefined") return null;
 
   useEffect(() => {
