@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeProviderClient from "@/components/ThemeProviderClient";
 import ClientGate from "@/components/ClientGate";
-import InitialLoadingWrapper from "@/components/InitialLoadingWrapper";
+// import InitialLoadingWrapper from "@/components/InitialLoadingWrapper";
 import en from "@/lib/locales/en.json";
 import hi from "@/lib/locales/hi.json";
 import Header from "@/components/Header";
@@ -90,7 +90,7 @@ export default function RootLayout({
             </AuthProvider>
           </ClientGate>
         </ThemeProviderClient>
-        <InitialLoadingWrapper />
+        {/* <InitialLoadingWrapper /> */}
       </body>
     </html>
   );
