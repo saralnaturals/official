@@ -5,6 +5,7 @@ import LoadingSpinner from "./LoadingSpinner";
 export default function InitialLoadingWrapper() {
   const [isVisible, setIsVisible] = useState(true);
   const [progress, setProgress] = useState(0);
+  if (typeof window === "undefined") return null;
 
   useEffect(() => {
     // Animate loader immediately
@@ -27,7 +28,9 @@ export default function InitialLoadingWrapper() {
 
   return (
     <div
-      id="loader-overlay"
+      id="loader-overlay" 
+      aria-hidden="true"
+      role="presentation"
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-amber-50 dark:bg-neutral-900"
     >
       <LoadingSpinner isLoading progress={progress} />

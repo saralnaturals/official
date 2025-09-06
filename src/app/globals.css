@@ -86,14 +86,18 @@ html {
 
 /* Hide loader for non-visual contexts (crawlers) */
 @media all and (prefers-reduced-motion: reduce) {
-  #loader {
+
+  #loader,
+  #loader-overlay {
     display: none !important;
   }
 }
 
 /* Or hide via print media (also used by some crawlers) */
 @media print {
-  #loader {
+
+  #loader,
+  #loader-overlay {
     display: none !important;
   }
 }
