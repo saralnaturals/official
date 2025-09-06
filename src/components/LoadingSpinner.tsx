@@ -31,7 +31,7 @@ export default function LoadingSpinner({
   useEffect(() => {
     if (!isLoading) return;
 
-    const initialInterval: NodeJS.Timeout;
+
     let mainInterval: NodeJS.Timeout;
     let completeTimer: NodeJS.Timeout;
 
@@ -44,7 +44,7 @@ export default function LoadingSpinner({
     setLiquidProgress(0);
 
     // Step 1: 0 → 25%
-    initialInterval = setInterval(() => {
+    const initialInterval: NodeJS.Timeout = setInterval(() => {
       setLiquidProgress(prev => {
         if (prev >= 25) {
           clearInterval(initialInterval);
@@ -101,9 +101,8 @@ export default function LoadingSpinner({
           <motion.div
             className="absolute inset-1 rounded-full bg-gradient-to-t from-white/90 via-white/80 to-white/70 overflow-hidden shadow-inner border border-white/30 dark:border-gray-600 backdrop-blur-sm"
             style={{
-              clipPath: `polygon(0 ${100 - liquidProgress}%, 100% ${
-                100 - liquidProgress
-              }%, 100% 100%, 0 100%)`
+              clipPath: `polygon(0 ${100 - liquidProgress}%, 100% ${100 - liquidProgress
+                }%, 100% 100%, 0 100%)`
             }}
             animate={{ scale: [1, 1.02, 1] }}
             transition={{ duration: 0.5, repeat: Infinity, ease: "easeInOut" }}
