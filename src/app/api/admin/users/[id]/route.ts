@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { NextResponse, NextRequest } from 'next/server';
 import { verifyToken } from '@/lib/jwt';
 import { getMongoClient } from '@/lib/mongo';
