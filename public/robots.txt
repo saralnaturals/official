@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.saral-naturals.example
+Host: https://www.saralnaturals.com
 
 # Sitemaps
-Sitemap: https://www.saral-naturals.example/sitemap.xml
+Sitemap: https://www.saralnaturals.com/sitemap.xml
