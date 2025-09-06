@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useLanguage } from "@/lib/i18n";
+import { useAuth } from '@/context/AuthContext';
 import Link from "next/link";
 import { investmentSchemes } from "@/data/investments";
 
@@ -13,6 +14,22 @@ import InvestmentFooter from "@/components/InvestmentFooter";
 
 export default function InvestmentsPage() {
   const { t, language } = useLanguage();
+  const { user, refresh } = useAuth();
+  const [freshUser, setFreshUser] = React.useState<{ investedAmount?: number; returnPct?: number } | null>(null);
+  const [hasInvestment, setHasInvestment] = React.useState(false);
+
+  React.useEffect(() => {
+    // if we have a quick user from context, try to fetch server-side verified copy
+    (async () => {
+      try {
+        const u = await refresh();
+        setFreshUser(u as { investedAmount?: number; returnPct?: number } | null);
+        setHasInvestment(Boolean((u as unknown as { investedAmount?: number })?.investedAmount));
+      } catch {
+        /* ignore */
+      }
+    })();
+  }, [refresh]);
 
   const rows = [
     { amount: 25000, share: "0.25%", p30: 7500, p15: 3750 },
@@ -31,6 +48,32 @@ export default function InvestmentsPage() {
   return (
     <main className="bg-transparent dark:bg-neutral-900 text-amber-900 dark:text-neutral-200">
       <div className="container mx-auto p-4 sm:p-6 md:p-8">
+        {/* Invest Now CTA when user not invested */}
+        {!hasInvestment && (
+          <div className="mb-6 flex justify-end">
+            <Link href="/contact" className="rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700">{language === 'hi' ? 'अभी निवेश करें' : 'Invest Now'}</Link>
+          </div>
+        )}
+        {/* User investment summary */}
+  {(freshUser || user) && hasInvestment && (
+          <div className="mb-6 rounded-md border border-amber-200 bg-amber-50 dark:bg-neutral-800 dark:border-neutral-700 p-4">
+            <h3 className="text-lg font-semibold mb-2">{language === 'hi' ? 'आपका निवेश' : 'Your Investment'}</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+                <div>
+                  <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'निवेश राशि' : 'Invested Amount'}</div>
+    <div className="font-medium">{formatINR(Number((freshUser ?? (user as unknown as { investedAmount?: number }))?.investedAmount || 0))}</div>
+                </div>
+                <div>
+                  <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'रिटर्न %' : 'Return %'}</div>
+    <div className="font-medium">{Number((freshUser ?? (user as unknown as { returnPct?: number }))?.returnPct || 0)}%</div>
+                </div>
+                <div>
+                  <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'अनुमानित मासिक लाभ' : 'Estimated Monthly Earned'}</div>
+    <div className="font-medium">{formatINR(((Number((freshUser ?? (user as unknown as { investedAmount?: number }))?.investedAmount || 0) * Number((freshUser ?? (user as unknown as { returnPct?: number }))?.returnPct || 0)) / 100) || 0)}</div>
+                </div>
+              </div>
+          </div>
+        )}
         {/* Hero Section */}
         <InvestmentHero />
 

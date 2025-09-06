@@ -7,10 +7,7 @@ import { siteContent } from "@/data/site-content";
 import Stats from "@/components/Stats";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
-import { brandAssets } from "@/lib/brand";
 import HeroCarousel from "@/components/HeroCarousel";
-import LoadingSpinner from "@/components/LoadingSpinner";
-import { useState } from "react";
 
 export default function Home() {
   const { t } = useLanguage();

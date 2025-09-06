@@ -42,6 +42,20 @@ export default function ContactPage() {
     <main className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="text-2xl font-semibold">{t("contact.title")}</h1>
       <p className="mt-2 text-neutral-600 dark:text-neutral-300">{t("contact.subtitle")}</p>
+      <div className="mt-4 space-y-2">
+        <div>
+          <strong>Email: </strong>
+          <a href="mailto:product.saralnaturals@gmail.com" className="text-green-700 hover:underline">product.saralnaturals@gmail.com</a>
+        </div>
+        <div>
+          <strong>Phone: </strong>
+          <a href="tel:+919213414228" className="text-green-700 hover:underline">+91 9213414228</a>
+        </div>
+        <div>
+          <strong>WhatsApp: </strong>
+          <a href="https://wa.me/919213414228" target="_blank" rel="noreferrer" className="text-green-700 hover:underline">+91 9213414228</a>
+        </div>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 grid gap-4">
         <label className="grid gap-1 text-sm">
           {t("contact.name")}
