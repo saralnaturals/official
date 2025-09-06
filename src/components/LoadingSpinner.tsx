@@ -86,7 +86,6 @@ export default function LoadingSpinner({
   }, [isLoading, cycleLoadingText, cycleSubtitle]);
 
   if (!isLoading) return null;
-  return;
 
   return (
     <div
