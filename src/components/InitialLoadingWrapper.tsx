@@ -24,7 +24,7 @@ export default function InitialLoadingWrapper() {
       clearTimeout(removeLoader);
     };
   }, []);
-  if (typeof window === "undefined") return null;
+  
   if (!isVisible) return null;
 
   return (
