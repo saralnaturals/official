@@ -7,7 +7,7 @@ function getTokenFromReq(req: Request) {
 	return req.headers.get('cookie')?.split('sn_token=')[1]?.split(';')[0] || null;
 }
 
-export async function GET(req: NextRequest, ctx: { params: { id: string } }): Promise<Response> {
+export async function GET(req: NextRequest, ctx: any): Promise<Response> {
 	try {
 	const token = getTokenFromReq(req);
 	const payload = token ? verifyToken(token) as { email?: string; role?: string } : null;
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest, ctx: { params: { id: string } }): Pr
 		}
 }
 
-export async function DELETE(req: NextRequest, ctx: { params: { id: string } }): Promise<Response> {
+export async function DELETE(req: NextRequest, ctx: any): Promise<Response> {
 	try {
 	const token = getTokenFromReq(req);
 	const payload = token ? verifyToken(token) as { email?: string; role?: string } : null;
