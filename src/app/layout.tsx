@@ -80,18 +80,17 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <InitialLoadingWrapper>
-          <ThemeProviderClient>
-            <ClientGate resources={{ en: en as Record<string, string>, hi: hi as Record<string, string> }}>
-              <AuthProvider>
-                <Header />
-                {children}
-                <Footer />
-                <LanguageModal />
-              </AuthProvider>
-            </ClientGate>
-          </ThemeProviderClient>
-        </InitialLoadingWrapper>
+        <ThemeProviderClient>
+          <ClientGate resources={{ en: en as Record<string, string>, hi: hi as Record<string, string> }}>
+            <AuthProvider>
+              <Header />
+              {children}
+              <Footer />
+              <LanguageModal />
+            </AuthProvider>
+          </ClientGate>
+        </ThemeProviderClient>
+        <InitialLoadingWrapper />
       </body>
     </html>
   );
