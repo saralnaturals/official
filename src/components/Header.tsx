@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from "@/lib/i18n";
 import { Globe } from "lucide-react";
 import Image from "next/image";
 import { brandAssets } from "@/lib/brand";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Header() {
   const { t, setLanguage, language } = useLanguage();
@@ -16,6 +16,7 @@ export default function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { user, logout } = useAuth();
   const location = usePathname();
+  const navigate = useRouter();
 
   const navItems = [
     { href: "/", labelKey: "nav.home", isProtected: false },
@@ -37,25 +38,24 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-amber-600 bg-amber-50/20 backdrop-blur-md supports-[backdrop-filter]:bg-amber-50/20 shadow-lg dark:border-neutral-700 dark:bg-neutral-900/95 dark:supports-[backdrop-filter]:bg-neutral-900/90">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 max-sm:flex-wrap">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 max-[800px]:flex-wrap">
         <Link href="/" className="flex items-center gap-2 text-base font-semibold">
           <Image
             src={brandAssets.mark}
             alt="Saral Naturals"
             width={108}
             height={28}
+            className="max-[400px]:w-20"
             style={{ filter: 'drop-shadow(1px 1px 0px #f5f5dc) drop-shadow(-1px -1px 0px #f5f5dc)' }}
           />
-          <span>{t("site.name")}</span>
+          <span className="max-[400px]:text-sm max-[450px]:text-base  text-xl">{t("site.name")}</span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden sm:flex items-center gap-6 min-w-[280px] md:min-w-[320px]">
-          <Link href="/" className="text-sm text-amber-900 hover:text-amber-950 dark:text-neutral-300 dark:hover:text-white font-medium">{t("nav.home")}</Link>
-          <Link href="/about" className="text-sm text-amber-900 hover:text-amber-950 dark:text-neutral-300 dark:hover:text-white font-medium">{t("nav.about")}</Link>
-          <Link href="/products" className="text-sm text-amber-900 hover:text-amber-950 dark:text-neutral-300 dark:hover:text-white font-medium">{t("nav.products")}</Link>
-          <Link href="/investments" className="text-sm text-amber-900 hover:text-amber-950 dark:text-neutral-300 dark:hover:text-white font-medium">{t("nav.investments")}</Link>
-          <Link href="/contact" className="text-sm text-amber-900 hover:text-amber-950 dark:text-neutral-300 dark:hover:text-white font-medium">{t("nav.contact")}</Link>
+        <nav className="hidden min-[812px]:flex items-center gap-6 min-w-[280px] md:min-w-[320px]">
+          {navItems
+            .filter(item => !item.isProtected)
+            .map((item) => <Link key={item.labelKey} href={item.href} className={`text-sm  transition-all text-amber-900 border-b-4 ${location === item.href ? " border-amber-600" : "border-transparent"} hover:text-amber-950 dark:text-neutral-300 dark:hover:text-white font-medium`}>{t(item.labelKey)}</Link>)}
         </nav>
 
         <div className="flex items-center gap-2">
@@ -64,13 +64,13 @@ export default function Header() {
             {user ? (
               <button
                 onClick={() => setProfileOpen((v) => !v)}
-                className="flex items-center gap-2 rounded-md p-2 hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
+                className="min-[812px]:flex hidden items-center gap-2 rounded-md hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
               >
                 <div className="h-6 w-6 rounded-full bg-amber-700 text-white flex items-center justify-center text-xs">{user.name ? user.name[0] : 'A'}</div>
-                <span className="text-sm font-medium">Hi, {user.name ?? (user.email ? maskEmail(user.email) : '')}</span>
+                <span className="text-sm font-medium w-18 text-ellipsis text-left">Hi, {user.name?.split(" ")[0] ?? ''}</span>
               </button>
             ) : (
-              <Link href="/login" className="block">Login</Link>
+              <Link href="/login" className="min-[812px]:flex hidden ">Login</Link>
             )}
 
             {profileOpen && (
@@ -98,7 +98,7 @@ export default function Header() {
           <div className="relative">
             <button
               onClick={() => setOpen((v) => !v)}
-              className="flex items-center gap-1 rounded-md p-2 hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
+              className="flex items-center gap-1 rounded-md hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
             >
               <Globe size={18} />
               <span className="text-xs uppercase font-medium">{language}</span>
@@ -129,7 +129,7 @@ export default function Header() {
           {/* Hamburger for mobile */}
           <button
             onClick={() => setDrawerOpen((v) => !v)}
-            className="ml-2 rounded-md p-2 hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors sm:hidden z-50"
+            className="ml-2 rounded-md p-2 hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors min-[812px]:hidden z-50"
             aria-label="Toggle menu"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,7 +140,7 @@ export default function Header() {
 
         {/* Mobile menu */}
         {drawerOpen && (
-          <div className="fixed h-screen flex-col inset-0 z-50 flex sm:hidden ">
+          <div className="fixed h-screen flex-col inset-0 z-50 flex min-[812px]:hidden bg-amber-50 dark:bg-neutral-900 ">
             <div className="w-full z-10 border-b border-amber-600 bg-amber-50 dark:bg-neutral-900  dark:border-neutral-700 shadow-xl py-3">
               <div className="flex items-center justify-between px-4 ">
                 <Link href="/" className="flex items-center gap-2 text-base font-semibold">
@@ -149,9 +149,10 @@ export default function Header() {
                     alt="Saral Naturals"
                     width={108}
                     height={28}
+                    className="max-[400px]:w-20"
                     style={{ filter: 'drop-shadow(1px 1px 0px #f5f5dc) drop-shadow(-1px -1px 0px #f5f5dc)' }}
                   />
-                  <span>{t("site.name")}</span>
+                  <span className="max-[400px]:text-sm max-[450px]:text-base  text-xl">{t("site.name")}</span>
                 </Link>
                 <button onClick={() => setDrawerOpen(false)} className="p-2 flex items-center rounded-md hover:bg-amber-200 dark:hover:bg-neutral-800">
                   <div className="flex-1" aria-label="Toggle menu" onClick={() => setDrawerOpen(false)} >
@@ -162,17 +163,17 @@ export default function Header() {
                   Close
                 </button>
               </div>
-
             </div>
-            <div className=" flex flex-col justify-between grow w-full pt-4 bg-amber-50 dark:bg-neutral-900  dark:border-neutral-700 ">
+            {user ? <div className="flex pt-5 justify-center items-center text-xl">👋Hi, {user.name ?? ''}</div> : null}
+            <div className="flex flex-col justify-between grow w-full pt-1 bg-amber-50 dark:bg-neutral-900  dark:border-neutral-700 ">
               <nav className="flex flex-col">
                 {navItems
                   .filter(item => !item.isProtected || (item.isProtected && user))
-                  .map((item) => <Link key={item.labelKey} href={item.href} className={`text-base py-1 ${location === item.href ? "border-l-4 border-amber-600 border-b pr-4 pl-3" : " border-b border-transparent px-4"} hover:bg-amber-200 dark:hover:bg-neutral-800" transition-all`}>{t(item.labelKey)}</Link>)}
+                  .map((item) => <Link key={item.labelKey} href={item.href} className={`text-base py-1 ${location === item.href ? "border-l-4 border-amber-600 border-b pr-4 pl-3" : " border-b border-transparent px-4"} hover:bg-amber-200 dark:hover:bg-neutral-800 transition-all`}>{t(item.labelKey)}</Link>)}
               </nav>
               {user ? (
-                <button className="text-base py-2 m-4 rounded-xl border border-amber-600 hover:bg-amber-200 dark:hover:bg-neutral-800" onClick={async () => { await logout(); setDrawerOpen(false); }}>Logout</button>
-              ) : null}
+                <button className="text-base py-2 m-4 rounded-xl border border-amber-600 transition-all hover:bg-amber-600 hover:text-amber-50 dark:hover:bg-neutral-800" onClick={async () => { await logout(); setDrawerOpen(false); }}>Logout</button>
+              ) : <button className="text-base py-2 m-4 rounded-xl border border-amber-600 transition-all hover:bg-amber-600 hover:text-amber-50 dark:hover:bg-neutral-800" onClick={() => { navigate.push("/login"); setDrawerOpen(false); }}>Login</button>}
             </div>
           </div>
         )}
