@@ -90,6 +90,7 @@ export default function LoadingSpinner({
   return (
     <div
       id="loader"
+      aria-hidden="true"
       className="fixed inset-0 z-50 flex items-center justify-center bg-amber-50 dark:bg-neutral-900 pointer-events-none"
     >
       <div className="text-center">
