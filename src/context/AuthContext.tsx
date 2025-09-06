@@ -3,14 +3,14 @@
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 
-type User = { email: string; role?: string } | null;
+type User = { email: string; role?: string; name?: string; invested?: boolean } | null;
 
 type AuthContextShape = {
   user: User;
   loading: boolean;
-  login: (email: string, password: string) => Promise<User>;
+  login: (email: string, password: string) => Promise<User | null>;
   logout: () => Promise<void>;
-  refresh: () => Promise<User>;
+  refresh: () => Promise<User | null>;
 };
 
 const AuthContext = React.createContext<AuthContextShape | undefined>(undefined);
