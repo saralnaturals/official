@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { NextResponse } from 'next/server';
 import { verifyToken } from '@/lib/jwt';
 import { getMongoClient } from '@/lib/mongo';
@@ -9,10 +7,10 @@ function getTokenFromReq(req: Request) {
 	return req.headers.get('cookie')?.split('sn_token=')[1]?.split(';')[0] || null;
 }
 
-export async function GET(req: Request, ctx: any) {
+export async function GET(req: Request, ctx: { params?: { id?: string } }) {
 	try {
-		const token = getTokenFromReq(req);
-		const payload: any = token ? verifyToken(token) : null;
+	const token = getTokenFromReq(req);
+	const payload = token ? verifyToken(token) as { email?: string; role?: string } : null;
 		if (!payload || payload.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
 		const client = await getMongoClient();
@@ -20,20 +18,20 @@ export async function GET(req: Request, ctx: any) {
 	const id = ctx?.params?.id;
 	if (!id) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
 	let oid: ObjectId;
-	try { oid = new ObjectId(id); } catch (e) { return NextResponse.json({ error: 'Invalid id' }, { status: 400 }); }
+	try { oid = new ObjectId(id); } catch { return NextResponse.json({ error: 'Invalid id' }, { status: 400 }); }
 	const u = await users.findOne({ _id: oid });
 		if (!u) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 		if (u.password) delete u.password;
 		return NextResponse.json({ user: u });
-	} catch (e) {
-		return NextResponse.json({ error: String(e) }, { status: 500 });
-	}
+		} catch (_err) {
+			return NextResponse.json({ error: String(_err) }, { status: 500 });
+		}
 }
 
-export async function DELETE(req: Request, ctx: any) {
+export async function DELETE(req: Request, ctx: { params?: { id?: string } }) {
 	try {
-		const token = getTokenFromReq(req);
-		const payload: any = token ? verifyToken(token) : null;
+	const token = getTokenFromReq(req);
+	const payload = token ? verifyToken(token) as { email?: string; role?: string } : null;
 		if (!payload || payload.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
 		const client = await getMongoClient();
@@ -41,12 +39,12 @@ export async function DELETE(req: Request, ctx: any) {
 	const id = ctx?.params?.id;
 	if (!id) return NextResponse.json({ error: 'Invalid id' }, { status: 400 });
 	let oid: ObjectId;
-	try { oid = new ObjectId(id); } catch (e) { return NextResponse.json({ error: 'Invalid id' }, { status: 400 }); }
+	try { oid = new ObjectId(id); } catch { return NextResponse.json({ error: 'Invalid id' }, { status: 400 }); }
 	const res = await users.deleteOne({ _id: oid });
 		if (!res.deletedCount) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 		return NextResponse.json({ ok: true });
-	} catch (e) {
-		return NextResponse.json({ error: String(e) }, { status: 500 });
-	}
+		} catch (_err) {
+			return NextResponse.json({ error: String(_err) }, { status: 500 });
+		}
 }
 

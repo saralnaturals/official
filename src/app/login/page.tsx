@@ -18,10 +18,10 @@ export default function LoginPage() {
     try {
       const u = await login(data.email, data.password);
       if (!u) throw new Error('Login failed');
-      try { router.refresh(); } catch (e) {}
+  try { router.refresh(); } catch {}
       if (u.role === 'admin') router.push('/admin'); else router.push('/investments');
-    } catch (e) {
-      alert(String(e));
+    } catch (err) {
+      alert(String(err));
     }
   }
 

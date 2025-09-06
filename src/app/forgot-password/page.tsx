@@ -2,17 +2,17 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useLanguage } from '@/lib/i18n';
 
 export default function ForgotPassword() {
-  const { t } = useLanguage();
   const { register, handleSubmit } = useForm<{ email: string }>();
   const [sent, setSent] = React.useState(false);
 
   async function onSubmit(data: { email: string }) {
-    // Call backend to send OTP via nodemailer
-    // For now we simulate
-    console.log('Request reset for', data.email);
+    try {
+      await fetch('/api/auth/forgot', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: data.email }) });
+    } catch {
+      // ignore network errors, don't reveal existence
+    }
     setSent(true);
   }
 

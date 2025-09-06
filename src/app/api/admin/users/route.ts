@@ -1,8 +1,6 @@
-/* eslint-disable */
-
 import { NextResponse } from 'next/server';
 import { getMongoClient } from '@/lib/mongo';
-import { getTokenPayload, extractTokenFromRequest } from '@/lib/auth';
+import { getTokenPayload } from '@/lib/auth';
 import * as bcrypt from 'bcryptjs';
 import { rateLimit } from '@/lib/rateLimit';
 import { isEmail, isNonEmptyString, validateCsrf } from '@/lib/validators';
@@ -17,7 +15,7 @@ export async function POST(req: Request) {
     const rl = rateLimit(ip, 30, 60 * 1000);
     if (!rl.allowed) return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
 
-  const payload: any = getTokenPayload(req);
+  const payload = getTokenPayload(req) as { email?: string; role?: string } | null;
     if (!payload || payload.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     if (!validateCsrf(req)) return NextResponse.json({ error: 'CSRF validation failed' }, { status: 403 });
@@ -47,18 +45,7 @@ export async function GET(req: Request) {
   const rl = rateLimit(ip, 120, 60 * 1000);
   if (!rl.allowed) return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
 
-  const payload: any = getTokenPayload(req);
-  // DEV: helpful debug logging when running locally to understand 401 causes
-  if (process.env.NODE_ENV !== 'production') {
-    try {
-      const token = extractTokenFromRequest(req);
-      // eslint-disable-next-line no-console
-      console.debug('[dev-debug] /api/admin/users GET token present:', !!token, ' token:', token ? token.slice(0, 20) + '...' : null, ' payload:', payload);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.debug('[dev-debug] /api/admin/users GET logging failed', String(e));
-    }
-  }
+  const payload = getTokenPayload(req) as { email?: string; role?: string } | null;
   if (!payload || payload.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const client = await getMongoClient();
@@ -67,7 +54,7 @@ export async function GET(req: Request) {
   const list = await users.find().toArray();
   list.forEach(u => { if (u.password) delete u.password; });
   return NextResponse.json({ users: list });
-  } catch (e) {
-    return NextResponse.json({ error: String(e) }, { status: 500 });
+  } catch (_err) {
+    return NextResponse.json({ error: String(_err) }, { status: 500 });
   }
 }

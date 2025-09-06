@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { NextResponse } from 'next/server';
 import { getMongoClient } from '@/lib/mongo';
 import { getTokenPayload } from '@/lib/auth';
@@ -11,18 +9,8 @@ export async function GET(req: Request) {
     const rl = rateLimit(ip, 60, 60 * 1000);
     if (!rl.allowed) return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
 
-    const payload: any = getTokenPayload(req);
-    if (process.env.NODE_ENV !== 'production') {
-      try {
-        const token = req.headers.get('authorization') || req.headers.get('cookie') || req.headers.get('x-test-token') || '';
-        // eslint-disable-next-line no-console
-        console.debug('[dev-debug] /api/admin/users/search token header/cookie/test present:', !!token, ' payload:', payload);
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.debug('[dev-debug] /api/admin/users/search logging failed', String(e));
-      }
-    }
-    if (!payload || payload.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  const payload = getTokenPayload(req) as { email?: string; role?: string } | null;
+  if (!payload || payload.role !== 'admin') return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
     const url = new URL(req.url);
     const q = (url.searchParams.get('q') || '').trim();
@@ -39,7 +27,7 @@ export async function GET(req: Request) {
       .toArray();
 
     return NextResponse.json({ users: list });
-  } catch (e) {
-    return NextResponse.json({ error: String(e) }, { status: 500 });
+  } catch (_err) {
+    return NextResponse.json({ error: String(_err) }, { status: 500 });
   }
 }

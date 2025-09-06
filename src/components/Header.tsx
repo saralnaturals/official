@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from "@/lib/i18n";
 import { Globe } from "lucide-react";
@@ -21,7 +21,7 @@ export default function Header() {
       if (!local || !domain) return email;
       if (local.length <= 2) return `${local[0]}*@${domain}`;
       return `${local[0]}***${local.slice(-1)}@${domain}`;
-    } catch (e) { return email; }
+  } catch { return email; }
   }
 
   return (

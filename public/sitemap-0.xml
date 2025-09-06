@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://www.saral-naturals.example/robots.txt</loc><lastmod>2025-08-29T18:29:46.072Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.saral-naturals.example/sitemap.xml</loc><lastmod>2025-08-29T18:29:46.072Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.saral-naturals.example/contact</loc><lastmod>2025-08-29T18:29:46.072Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.saral-naturals.example/about</loc><lastmod>2025-08-29T18:29:46.072Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.saral-naturals.example/products</loc><lastmod>2025-08-29T18:29:46.072Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.saral-naturals.example</loc><lastmod>2025-08-29T18:29:46.072Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.saral-naturals.example/investments</loc><lastmod>2025-08-29T18:29:46.072Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.saral-naturals.example/investments/scheme-a</loc><lastmod>2025-08-29T18:29:46.072Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/investments</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/sitemap.xml</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/about</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/forgot-password</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/products</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/admin</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/robots.txt</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/login</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/admin/edit-rates</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/admin/create-user</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/account</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/contact</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/investments/scheme-a</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.saral-naturals.example/change-password</loc><lastmod>2025-09-06T06:24:03.665Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>

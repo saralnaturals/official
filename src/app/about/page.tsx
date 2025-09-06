@@ -2,12 +2,10 @@
 
 import React from "react";
 import { useLanguage } from "@/lib/i18n";
-import { siteContent } from "@/data/site-content";
 import ImageGallery from "@/components/ImageGallery";
 
 export default function AboutPage() {
   const { language } = useLanguage();
-  const sc = siteContent[language];
 
   // Sample gallery images - you can replace these with actual images
   const galleryImages = [

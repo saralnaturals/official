@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { NextResponse } from 'next/server';
 import { getMongoClient } from '@/lib/mongo';
 import { signToken } from '@/lib/jwt';
@@ -29,7 +27,7 @@ export async function POST(req: Request) {
     const db = client.db('saral');
     const users = db.collection('users');
 
-    const user = await users.findOne({ email });
+  const user = await users.findOne({ email }) as { email?: string; role?: string; password?: string } | null;
     if (!user) {
       if (process.env.NODE_ENV !== 'production') console.log('[auth/login] no user found for', email);
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
@@ -41,7 +39,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
-    const payload: any = { email: user.email, role: user.role || 'investor' };
+  const payload = { email: user.email, role: user.role || 'investor' };
     const token = signToken(payload);
 
   const res = NextResponse.json({ ok: true, ...(process.env.NODE_ENV !== 'production' ? { token } : {}) });
@@ -51,7 +49,7 @@ export async function POST(req: Request) {
   const csrf = Math.random().toString(36).slice(2);
   res.cookies.set('sn_csrf', csrf, { path: '/', maxAge: 60 * 60 * 24 * 7, sameSite: 'lax', secure: process.env.NODE_ENV === 'production' });
     return res;
-  } catch (e) {
-    return NextResponse.json({ error: String(e) }, { status: 500 });
+  } catch (_err) {
+    return NextResponse.json({ error: String(_err) }, { status: 500 });
   }
 }

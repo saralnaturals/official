@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable */
 
 import React from "react";
 import { useLanguage } from "@/lib/i18n";
@@ -16,7 +15,7 @@ import InvestmentFooter from "@/components/InvestmentFooter";
 export default function InvestmentsPage() {
   const { t, language } = useLanguage();
   const { user, refresh } = useAuth();
-  const [freshUser, setFreshUser] = React.useState<any>(null);
+  const [freshUser, setFreshUser] = React.useState<{ investedAmount?: number; returnPct?: number } | null>(null);
   const [hasInvestment, setHasInvestment] = React.useState(false);
 
   React.useEffect(() => {
@@ -24,12 +23,13 @@ export default function InvestmentsPage() {
     (async () => {
       try {
         const u = await refresh();
-        setFreshUser(u);
-        setHasInvestment(Boolean(u?.investedAmount));
-      } catch (e) {}
+        setFreshUser(u as { investedAmount?: number; returnPct?: number } | null);
+        setHasInvestment(Boolean((u as unknown as { investedAmount?: number })?.investedAmount));
+      } catch {
+        /* ignore */
+      }
     })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refresh]);
 
   const rows = [
     { amount: 25000, share: "0.25%", p30: 7500, p15: 3750 },
@@ -59,19 +59,19 @@ export default function InvestmentsPage() {
           <div className="mb-6 rounded-md border border-amber-200 bg-amber-50 dark:bg-neutral-800 dark:border-neutral-700 p-4">
             <h3 className="text-lg font-semibold mb-2">{language === 'hi' ? 'आपका निवेश' : 'Your Investment'}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-              <div>
-                <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'निवेश राशि' : 'Invested Amount'}</div>
-    <div className="font-medium">{formatINR(Number((freshUser || user)?.investedAmount || 0))}</div>
+                <div>
+                  <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'निवेश राशि' : 'Invested Amount'}</div>
+    <div className="font-medium">{formatINR(Number((freshUser ?? (user as unknown as { investedAmount?: number }))?.investedAmount || 0))}</div>
+                </div>
+                <div>
+                  <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'रिटर्न %' : 'Return %'}</div>
+    <div className="font-medium">{Number((freshUser ?? (user as unknown as { returnPct?: number }))?.returnPct || 0)}%</div>
+                </div>
+                <div>
+                  <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'अनुमानित मासिक लाभ' : 'Estimated Monthly Earned'}</div>
+    <div className="font-medium">{formatINR(((Number((freshUser ?? (user as unknown as { investedAmount?: number }))?.investedAmount || 0) * Number((freshUser ?? (user as unknown as { returnPct?: number }))?.returnPct || 0)) / 100) || 0)}</div>
+                </div>
               </div>
-              <div>
-                <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'रिटर्न %' : 'Return %'}</div>
-    <div className="font-medium">{Number((freshUser || user)?.returnPct || 0)}%</div>
-              </div>
-              <div>
-                <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'अनुमानित मासिक लाभ' : 'Estimated Monthly Earned'}</div>
-    <div className="font-medium">{formatINR(((Number((freshUser || user)?.investedAmount || 0) * Number((freshUser || user)?.returnPct || 0)) / 100) || 0)}</div>
-              </div>
-            </div>
           </div>
         )}
         {/* Hero Section */}

@@ -1,17 +1,16 @@
 "use client";
-/* eslint-disable */
 
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 
-type User = any;
+type User = { email: string; role?: string } | null;
 
 type AuthContextShape = {
-  user: User | null;
+  user: User;
   loading: boolean;
-  login: (email: string, password: string) => Promise<User | null>;
+  login: (email: string, password: string) => Promise<User>;
   logout: () => Promise<void>;
-  refresh: () => Promise<User | null>;
+  refresh: () => Promise<User>;
 };
 
 const AuthContext = React.createContext<AuthContextShape | undefined>(undefined);
@@ -20,10 +19,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const persist = useCallback((u: User | null) => {
+  const persist = useCallback((u: User) => {
     try {
       if (u) localStorage.setItem('sn_user', JSON.stringify(u)); else localStorage.removeItem('sn_user');
-    } catch (e) {}
+    } catch {
+      /* ignore */
+    }
   }, []);
 
   const refresh = useCallback(async (): Promise<User | null> => {
@@ -39,7 +40,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(null);
       persist(null);
       return null;
-    } catch (e) {
+    } catch {
       setUser(null);
       persist(null);
       return null;
@@ -53,11 +54,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const raw = localStorage.getItem('sn_user');
       if (raw) setUser(JSON.parse(raw));
-    } catch (e) {}
+    } catch {
+      /* ignore */
+    }
     // verify server side
     refresh();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [refresh]);
 
   const login = useCallback(async (email: string, password: string) => {
     const res = await fetch('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password }), headers: { 'Content-Type': 'application/json' }, credentials: 'include' });
@@ -78,9 +80,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const csrf = document.cookie.split('sn_csrf=')[1]?.split(';')[0];
       await fetch('/api/auth/logout', { method: 'POST', headers: { 'x-csrf-token': csrf || '' } });
-    } catch (e) {}
+    } catch {
+      /* ignore */
+    }
     setUser(null);
-    persist(null);
+    persist(null as unknown as User);
   }, [persist]);
 
   const value = React.useMemo(() => ({ user, loading, login, logout, refresh }), [user, loading, login, logout, refresh]);
