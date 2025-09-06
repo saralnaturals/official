@@ -82,3 +82,18 @@ html {
 .prose {
   color: var(--foreground);
 }
+
+
+/* Hide loader for non-visual contexts (crawlers) */
+@media all and (prefers-reduced-motion: reduce) {
+  #loader {
+    display: none !important;
+  }
+}
+
+/* Or hide via print media (also used by some crawlers) */
+@media print {
+  #loader {
+    display: none !important;
+  }
+}
