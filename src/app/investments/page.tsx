@@ -48,35 +48,35 @@ export default function InvestmentsPage() {
   return (
     <main className="bg-transparent dark:bg-neutral-900 text-amber-900 dark:text-neutral-200">
       <div className="container mx-auto p-4 sm:p-6 md:p-8">
-        {/* Invest Now CTA when user not invested */}
-        {!hasInvestment && (
-          <div className="mb-6 flex justify-end">
-            <Link href="/contact" className="rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-700">{language === 'hi' ? 'अभी निवेश करें' : 'Invest Now'}</Link>
-          </div>
-        )}
+
         {/* User investment summary */}
-  {(freshUser || user) && hasInvestment && (
+        {(freshUser || user) && hasInvestment && (
           <div className="mb-6 rounded-md border border-amber-200 bg-amber-50 dark:bg-neutral-800 dark:border-neutral-700 p-4">
             <h3 className="text-lg font-semibold mb-2">{language === 'hi' ? 'आपका निवेश' : 'Your Investment'}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-                <div>
-                  <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'निवेश राशि' : 'Invested Amount'}</div>
-    <div className="font-medium">{formatINR(Number((freshUser ?? (user as unknown as { investedAmount?: number }))?.investedAmount || 0))}</div>
-                </div>
-                <div>
-                  <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'रिटर्न %' : 'Return %'}</div>
-    <div className="font-medium">{Number((freshUser ?? (user as unknown as { returnPct?: number }))?.returnPct || 0)}%</div>
-                </div>
-                <div>
-                  <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'अनुमानित मासिक लाभ' : 'Estimated Monthly Earned'}</div>
-    <div className="font-medium">{formatINR(((Number((freshUser ?? (user as unknown as { investedAmount?: number }))?.investedAmount || 0) * Number((freshUser ?? (user as unknown as { returnPct?: number }))?.returnPct || 0)) / 100) || 0)}</div>
-                </div>
+              <div>
+                <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'निवेश राशि' : 'Invested Amount'}</div>
+                <div className="font-medium">{formatINR(Number((freshUser ?? (user as unknown as { investedAmount?: number }))?.investedAmount || 0))}</div>
               </div>
+              <div>
+                <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'रिटर्न %' : 'Return %'}</div>
+                <div className="font-medium">{Number((freshUser ?? (user as unknown as { returnPct?: number }))?.returnPct || 0)}%</div>
+              </div>
+              <div>
+                <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'अनुमानित मासिक लाभ' : 'Estimated Monthly Earned'}</div>
+                <div className="font-medium">{formatINR(((Number((freshUser ?? (user as unknown as { investedAmount?: number }))?.investedAmount || 0) * Number((freshUser ?? (user as unknown as { returnPct?: number }))?.returnPct || 0)) / 100) || 0)}</div>
+              </div>
+            </div>
           </div>
         )}
         {/* Hero Section */}
         <InvestmentHero />
-
+        {/* Invest Now CTA when user not invested */}
+        {!hasInvestment && (
+          <div className="mb-12 flex  justify-center">
+            <Link href="/contact" className="rounded-md w-full max-w-md text-center bg-green-600 px-4 py-2 text-white hover:bg-green-700">{language === 'hi' ? 'अभी निवेश करें' : 'Invest Now'}</Link>
+          </div>
+        )}
         {/* Business Overview Section */}
         <BusinessOverview />
 
@@ -88,7 +88,7 @@ export default function InvestmentsPage() {
           <div className="text-center max-w-3xl mx-auto mb-8">
             <h2 className="text-3xl font-bold mb-4">{t("nav.investments")}</h2>
             <p className="text-amber-700 dark:text-neutral-400">
-              {language === "hi" 
+              {language === "hi"
                 ? "टिकाऊ विकास के लिए तैयार हमारी निवेश योजनाओं का अन्वेषण करें।"
                 : "Explore our investment schemes tailored for sustainable growth."
               }
@@ -130,31 +130,17 @@ export default function InvestmentsPage() {
           </div>
         </section>
 
-        {/* Investment Schemes Links */}
-        <section className="mb-16">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {investmentSchemes.map((s) => (
-              <Link 
-                key={s.slug} 
-                href={`/investments/${s.slug}`} 
-                className="rounded-lg border border-amber-200 dark:border-neutral-700 p-4 hover:bg-amber-100 dark:hover:bg-neutral-700 bg-amber-50 dark:bg-neutral-800 transition-colors"
-              >
-                <h2 className="text-lg font-medium">
-                  {t("nav.investments")} · {s.title.en}
-                </h2>
-                <p className="mt-1 text-sm text-amber-700 dark:text-neutral-400">
-                  {s.summary.en}
-                </p>
-              </Link>
-            ))}
-          </div>
-        </section>
-
         {/* Terms and Conditions Section */}
         <TermsAccordion />
 
         {/* Footer */}
         <InvestmentFooter />
+        {/* Invest Now CTA when user not invested */}
+        {!hasInvestment && (
+          <div className=" flex  justify-center">
+            <Link href="/contact" className="rounded-md w-full max-w-md text-center bg-green-600 px-4 py-2 text-white hover:bg-green-700">{language === 'hi' ? 'अभी निवेश करें' : 'Invest Now'}</Link>
+          </div>
+        )}
       </div>
     </main>
   );

@@ -12,7 +12,7 @@ export default function Footer() {
   return (
     <footer className="mt-16 border-t border-neutral-200 dark:border-neutral-800">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 sm:flex-row">
-        <div className="text-sm text-neutral-600 dark:text-neutral-400">
+        <div className="text-sm text-neutral-600 dark:text-neutral-400 text-center sm:text-left">
           <p>© {new Date().getFullYear()} {t("site.name")}. {t("footer.rights")}</p>
           <p className="mt-1">{sc.contact.phone} · {sc.contact.email}</p>
           <p className="mt-1">{sc.contact.address}</p>
