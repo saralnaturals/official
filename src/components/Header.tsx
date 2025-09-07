@@ -141,7 +141,7 @@ export default function Header() {
         {/* Mobile menu */}
         {drawerOpen && (
           <div className="fixed h-screen flex-col inset-0 z-50 flex min-[812px]:hidden bg-amber-50 dark:bg-neutral-900 ">
-            <div className="w-full z-10 border-b border-amber-600 bg-amber-50 dark:bg-neutral-900  dark:border-neutral-700 shadow-xl py-3">
+            <div className="w-full z-10 border-b border-amber-600 bg-amber-50 dark:bg-neutral-900  dark:border-neutral-700 shadow-lg py-3">
               <div className="flex items-center justify-between px-4 ">
                 <Link href="/" className="flex items-center gap-2 text-base font-semibold">
                   <Image
@@ -165,15 +165,15 @@ export default function Header() {
               </div>
             </div>
             {user ? <div className="flex pt-5 justify-center items-center text-xl">👋Hi, {user.name ?? ''}</div> : null}
-            <div className="flex flex-col justify-between grow w-full pt-1 bg-amber-50 dark:bg-neutral-900  dark:border-neutral-700 ">
+            <div className={`flex flex-col justify-start grow w-full pt-1 bg-amber-50 dark:bg-neutral-900  dark:border-neutral-700 ${user ? '' : 'mt-4'}`}>
               <nav className="flex flex-col">
                 {navItems
                   .filter(item => !item.isProtected || (item.isProtected && user))
-                  .map((item) => <Link key={item.labelKey} href={item.href} className={`text-base py-1 ${location === item.href ? "border-l-4 border-amber-600 border-b pr-4 pl-3" : " border-b border-transparent px-4"} hover:bg-amber-200 dark:hover:bg-neutral-800 transition-all`}>{t(item.labelKey)}</Link>)}
+                  .map((item) => <button key={item.labelKey} onClick={() => { navigate.push(item.href); setDrawerOpen(false); }} className={`text-base text-left py-1 ${location === item.href ? "border-l-4 border-amber-600 border-b pr-4 pl-3" : " border-b border-transparent px-4"} hover:bg-amber-200 dark:hover:bg-neutral-800 transition-all`}>{t(item.labelKey)}</button>)}
               </nav>
               {user ? (
-                <button className="text-base py-2 m-4 rounded-xl border border-amber-600 transition-all hover:bg-amber-600 hover:text-amber-50 dark:hover:bg-neutral-800" onClick={async () => { await logout(); setDrawerOpen(false); }}>Logout</button>
-              ) : <button className="text-base py-2 m-4 rounded-xl border border-amber-600 transition-all hover:bg-amber-600 hover:text-amber-50 dark:hover:bg-neutral-800" onClick={() => { navigate.push("/login"); setDrawerOpen(false); }}>Login</button>}
+                <button className="text-base py-2 mx-4 mb-4 mt-12 rounded-xl border border-amber-600 transition-all hover:bg-amber-600 hover:text-amber-50 dark:hover:bg-neutral-800" onClick={async () => { await logout(); setDrawerOpen(false); }}>Logout</button>
+              ) : <button className="text-base py-2 mx-4 mb-4 mt-12 rounded-xl border border-amber-600 transition-all hover:bg-amber-600 hover:text-amber-50 dark:hover:bg-neutral-800" onClick={() => { navigate.push("/login"); setDrawerOpen(false); }}>Login</button>}
             </div>
           </div>
         )}
