@@ -3,6 +3,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+// Avatar not used here because admin shows other user's avatar
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '@/lib/i18n';

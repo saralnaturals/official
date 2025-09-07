@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from "@/lib/i18n";
 import { Globe } from "lucide-react";
 import Image from "next/image";
+import Avatar from './Avatar';
 import { brandAssets } from "@/lib/brand";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -59,11 +60,7 @@ export default function Header() {
                 onClick={() => setProfileOpen((v) => !v)}
                 className="min-[812px]:flex hidden items-center gap-2 rounded-md p-2 hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
               >
-                {user.avatar ? (
-                  <Image src={user.avatar} alt={user.name ?? 'avatar'} width={24} height={24} className="rounded-full object-cover" unoptimized />
-                ) : (
-                  <div className="h-6 w-6 rounded-full bg-amber-700 text-white flex items-center justify-center text-xs">{user.name ? user.name[0] : 'A'}</div>
-                )}
+                <Avatar size="sm" />
                 <span className="text-sm font-medium w-18 text-ellipsis text-left">Hi, {user.name?.split(" ")[0] ?? ''}</span>
               </button>
             ) : (

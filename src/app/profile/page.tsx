@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Avatar from '@/components/Avatar';
 import { useLanguage } from '@/lib/i18n';
 import { useAuth } from '@/context/AuthContext';
 
@@ -95,9 +96,10 @@ export default function AccountPage() {
       <div className="mt-4 space-y-4">
         <div className="flex items-center gap-4">
           {preview || user.avatar ? (
+            // keep larger preview using Image for data URL or remote src
             <Image src={preview || user.avatar!} alt={user.name ?? 'avatar'} width={72} height={72} className="rounded-full object-cover" unoptimized />
           ) : (
-            <div className="h-18 w-18 rounded-full bg-amber-700 text-white flex items-center justify-center text-2xl">{user.name ? user.name[0] : 'A'}</div>
+            <Avatar size="lg" />
           )}
           <div>
             <div><strong>Email:</strong> {user.email}</div>
