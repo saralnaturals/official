@@ -56,10 +56,11 @@ export async function PUT(req: Request) {
   if (!validateCsrf(req)) return NextResponse.json({ error: 'CSRF validation failed' }, { status: 403 });
 
   const body = await req.json();
-  const { email, investedAmount, returnPct } = body;
+  let { email, investedAmount, returnPct, name, phone, avatar, password } = body;
+  // if client omitted email, default to the authenticated user's email
+  if (!email) email = payload.email;
   if (!email) return NextResponse.json({ error: 'email required' }, { status: 400 });
   if (!isEmail(email)) return NextResponse.json({ error: 'invalid email' }, { status: 400 });
-  if (!isNumberLike(investedAmount) || !isNumberLike(returnPct)) return NextResponse.json({ error: 'invalid numbers' }, { status: 400 });
 
   // admin can update any user, non-admin can update only their own email
   if (payload.role !== 'admin' && payload.email !== email) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
@@ -67,8 +68,20 @@ export async function PUT(req: Request) {
   const client = await getMongoClient();
   const db = client.db('saral');
   const users = db.collection('users');
-  await users.updateOne({ email }, { $set: { investedAmount, returnPct } });
-  return NextResponse.json({ ok: true });
+  const update: any = {};
+  if (typeof investedAmount !== 'undefined') update.investedAmount = investedAmount;
+  if (typeof returnPct !== 'undefined') update.returnPct = returnPct;
+  if (typeof name !== 'undefined') update.name = name;
+  if (typeof phone !== 'undefined') update.phone = phone;
+  if (typeof avatar !== 'undefined') update.avatar = avatar;
+  if (typeof password !== 'undefined' && password) update.password = (await import('bcryptjs')).hashSync(password, 10);
+
+  if (Object.keys(update).length === 0) return NextResponse.json({ error: 'No update fields' }, { status: 400 });
+
+  await users.updateOne({ email }, { $set: update });
+  const updated = await users.findOne({ email });
+  if (updated && updated.password) delete updated.password;
+  return NextResponse.json({ ok: true, user: updated });
   } catch (e) {
     return NextResponse.json({ error: String(e) }, { status: 500 });
   }

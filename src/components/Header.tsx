@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from "@/lib/i18n";
 import { Globe } from "lucide-react";
@@ -27,14 +27,7 @@ export default function Header() {
     { href: "/profile", labelKey: "nav.profile", isProtected: true },
   ];
 
-  function maskEmail(email: string) {
-    try {
-      const [local, domain] = email.split('@');
-      if (!local || !domain) return email;
-      if (local.length <= 2) return `${local[0]}*@${domain}`;
-      return `${local[0]}***${local.slice(-1)}@${domain}`;
-    } catch { return email; }
-  }
+  // email masking helper removed as it's unused in header
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-amber-600 bg-amber-50/20 backdrop-blur-md supports-[backdrop-filter]:bg-amber-50/20 shadow-lg dark:border-neutral-700 dark:bg-neutral-900/95 dark:supports-[backdrop-filter]:bg-neutral-900/90">
@@ -66,7 +59,11 @@ export default function Header() {
                 onClick={() => setProfileOpen((v) => !v)}
                 className="min-[812px]:flex hidden items-center gap-2 rounded-md p-2 hover:bg-amber-200 dark:hover:bg-neutral-800 transition-colors"
               >
-                <div className="h-6 w-6 rounded-full bg-amber-700 text-white flex items-center justify-center text-xs">{user.name ? user.name[0] : 'A'}</div>
+                {user.avatar ? (
+                  <Image src={user.avatar} alt={user.name ?? 'avatar'} width={24} height={24} className="rounded-full object-cover" unoptimized />
+                ) : (
+                  <div className="h-6 w-6 rounded-full bg-amber-700 text-white flex items-center justify-center text-xs">{user.name ? user.name[0] : 'A'}</div>
+                )}
                 <span className="text-sm font-medium w-18 text-ellipsis text-left">Hi, {user.name?.split(" ")[0] ?? ''}</span>
               </button>
             ) : (

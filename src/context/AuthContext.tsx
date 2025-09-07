@@ -3,7 +3,7 @@
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 
-type User = { email: string; role?: string; name?: string; invested?: boolean } | null;
+type User = { email: string; role?: string; name?: string; invested?: boolean; avatar?: string } | null;
 
 type AuthContextShape = {
   user: User;

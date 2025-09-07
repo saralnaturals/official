@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ThemeProviderClient from "@/components/ThemeProviderClient";
+// ThemeProviderClient intentionally not used in root layout to avoid client-only provider issues.
 import ClientGate from "@/components/ClientGate";
 import InitialLoadingWrapper from "@/components/InitialLoadingWrapper";
 import en from "@/lib/locales/en.json";

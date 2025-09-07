@@ -4,7 +4,8 @@ import React from "react";
 import { useLanguage } from "@/lib/i18n";
 import { useAuth } from '@/context/AuthContext';
 import Link from "next/link";
-import { investmentSchemes } from "@/data/investments";
+// investment schemes data is not used on this page currently
+import Image from 'next/image';
 
 import InvestmentHero from "@/components/InvestmentHero";
 import BusinessOverview from "@/components/BusinessOverview";
@@ -17,6 +18,8 @@ export default function InvestmentsPage() {
   const { user, refresh } = useAuth();
   const [freshUser, setFreshUser] = React.useState<{ investedAmount?: number; returnPct?: number } | null>(null);
   const [hasInvestment, setHasInvestment] = React.useState(false);
+
+  type SimpleUser = { avatar?: string; name?: string; investedAmount?: number; returnPct?: number } | null;
 
   React.useEffect(() => {
     // if we have a quick user from context, try to fetch server-side verified copy
@@ -53,6 +56,17 @@ export default function InvestmentsPage() {
         {(freshUser || user) && hasInvestment && (
           <div className="mb-6 rounded-md border border-amber-200 bg-amber-50 dark:bg-neutral-800 dark:border-neutral-700 p-4">
             <h3 className="text-lg font-semibold mb-2">{language === 'hi' ? 'आपका निवेश' : 'Your Investment'}</h3>
+            <div className="flex items-center gap-4 mb-3">
+              {(() => {
+                const cu = user as SimpleUser;
+                if (cu?.avatar) return <Image src={cu.avatar} alt={cu.name ?? 'avatar'} width={48} height={48} className="rounded-full object-cover" unoptimized />;
+                return <div className="h-12 w-12 rounded-full bg-amber-700 text-white flex items-center justify-center text-lg">{cu?.name ? cu.name[0] : 'A'}</div>;
+              })()}
+              <div>
+                <div className="text-sm">{language === 'hi' ? 'निवेश सारांश' : 'Investment Summary'}</div>
+                <div className="font-medium">{(user as SimpleUser)?.name ?? ''}</div>
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
               <div>
                 <div className="text-neutral-600 dark:text-neutral-300">{language === 'hi' ? 'निवेश राशि' : 'Invested Amount'}</div>
