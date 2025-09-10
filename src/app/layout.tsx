@@ -10,6 +10,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LanguageModal from "@/components/ui/LanguageModal";
 import { AuthProvider } from '@/context/AuthContext';
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,18 +34,18 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://saral-naturals.com"),
+  metadataBase: new URL("https://saralnaturals.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Saral Naturals - Premium Dairy Products",
     description: "Discover premium dairy products from Saral Naturals. Sustainable farming, organic practices, and high-quality products.",
-    url: "https://saral-naturals.com",
+    url: "https://saralnaturals.com",
     siteName: "Saral Naturals",
     images: [
       {
-        url: "/og.png",
+        url: "/favicon.svg",
         width: 1200,
         height: 630,
         alt: "Saral Naturals",
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Saral Naturals - Premium Dairy Products",
     description: "Discover premium dairy products from Saral Naturals. Sustainable farming, organic practices, and high-quality products.",
-    images: ["/og.png"],
+    images: ["/favicon.svg"],
   },
   robots: {
     index: true,
@@ -81,16 +82,17 @@ export default function RootLayout({
     <html suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
         {/* <ThemeProviderClient> */}
-          <ClientGate resources={{ en: en as Record<string, string>, hi: hi as Record<string, string> }}>
-            <AuthProvider>
-              <Header />
-              {children}
-              <Footer />
-              <LanguageModal />
-            </AuthProvider>
-          </ClientGate>
+        <ClientGate resources={{ en: en as Record<string, string>, hi: hi as Record<string, string> }}>
+          <AuthProvider>
+            <Header />
+            {children}
+            <Footer />
+            <LanguageModal />
+          </AuthProvider>
+        </ClientGate>
         {/* </ThemeProviderClient> */}
         <InitialLoadingWrapper />
+        <GoogleAnalytics gaId="G-RKDBGCNVTM" />
       </body>
     </html>
   );

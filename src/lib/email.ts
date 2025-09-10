@@ -21,7 +21,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function sendEmail(to: string, subject: string, text: string, html?: string) {
-  const from = GMAIL_USER || `no-reply@saral-naturals.com`;
+  const from = GMAIL_USER || `no-reply@saralnaturals.com`;
   const mailOptions: SMTPTransport.Options & Record<string, unknown> = { from, to, subject, text };
   if (html) mailOptions.html = html;
   try {
