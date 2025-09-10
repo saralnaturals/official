@@ -9,7 +9,7 @@ interface ContactFormData {
   message: string;
 }
 
-function validateContactFormData(data: any): data is ContactFormData {
+function validateContactFormData(data: unknown): data is ContactFormData {
   if (!data || typeof data !== 'object') {
     return false;
   }
@@ -77,10 +77,10 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    
+
     // Format email content
     const emailContent = formatContactEmail(body);
-    
+
     // Send email to business address
     try {
       await sendEmail(
@@ -89,27 +89,27 @@ export async function POST(request: Request) {
         emailContent.textContent,
         emailContent.htmlContent
       );
-      
+
       console.log("Contact form email sent successfully for:", body.name);
       return NextResponse.json({ ok: true });
-      
+
     } catch (emailError) {
       // Log specific error for debugging
       console.error("Failed to send contact form email:", emailError);
-      
+
       // Check if it's an SMTP configuration error
       const errorMessage = emailError instanceof Error ? emailError.message : String(emailError);
       if (errorMessage.includes('auth') || errorMessage.includes('credential')) {
         console.error("SMTP authentication error - check email configuration");
       }
-      
+
       // Return generic error to user
       return NextResponse.json(
         { ok: false, error: "Failed to send message. Please try again or contact us directly." },
         { status: 500 }
       );
     }
-    
+
   } catch (error) {
     // Catch any unexpected errors
     console.error("Unexpected error in contact form handler:", error);
