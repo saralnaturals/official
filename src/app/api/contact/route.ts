@@ -14,21 +14,24 @@ function validateContactFormData(data: unknown): data is ContactFormData {
     return false;
   }
 
+  // Cast to Record to access properties safely
+  const obj = data as Record<string, unknown>;
+
   // Check required fields exist and are strings
   if (
-    typeof data.name !== 'string' ||
-    typeof data.email !== 'string' ||
-    typeof data.phone !== 'string' ||
-    typeof data.message !== 'string'
+    typeof obj.name !== 'string' ||
+    typeof obj.email !== 'string' ||
+    typeof obj.phone !== 'string' ||
+    typeof obj.message !== 'string'
   ) {
     return false;
   }
 
   // Trim and validate lengths
-  const name = data.name.trim();
-  const email = data.email.trim();
-  const phone = data.phone.trim();
-  const message = data.message.trim();
+  const name = obj.name.trim();
+  const email = obj.email.trim();
+  const phone = obj.phone.trim();
+  const message = obj.message.trim();
 
   // Validate name (2-100 characters)
   if (name.length < 2 || name.length > 100) {
