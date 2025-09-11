@@ -142,32 +142,32 @@ export default function AboutPage() {
         <h2 className="text-3xl font-bold text-center mb-12 text-amber-900 dark:text-neutral-200">
           {language === "hi" ? "हमारी टीम" : "Our Team"}
         </h2>
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 justify-center gap-8">
           <div className="text-center">
             <div className="">
-              <Image 
-                src="/priyankaDp.png" 
-                alt="Priyanka - CEO" 
-                width={96} 
-                height={96} 
-                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600" 
+              <Image
+                src="/priyankaDpCropped.png"
+                alt="Priyanka - CEO"
+                width={144}
+                height={144}
+                className="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600"
               />
             </div>
             <h3 className="text-xl font-semibold mb-2 text-amber-900 dark:text-neutral-200">
               {language === "hi" ? "प्रियंका" : "Priyanka"}
             </h3>
             <p className="text-amber-700 dark:text-neutral-400">
-              {language === "hi" ? "CEO" : "CEO"}
+              {language === "hi" ? "सीईओ" : "CEO"}
             </p>
           </div>
           <div className="text-center">
             <div className="">
-              <Image 
-                src="/vijayDp.png" 
-                alt="Vijay - Co-Founder" 
-                width={96} 
-                height={96} 
-                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600" 
+              <Image
+                src="/vijayDpCropped.png"
+                alt="Vijay - Co-Founder"
+                width={144}
+                height={144}
+                className="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600"
               />
             </div>
             <h3 className="text-xl font-semibold mb-2 text-amber-900 dark:text-neutral-200">
@@ -179,12 +179,12 @@ export default function AboutPage() {
           </div>
           <div className="text-center">
             <div className="">
-              <Image 
-                src="/amanDp.jpg" 
-                alt="Aman - Co-Founder" 
-                width={96} 
-                height={96} 
-                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600" 
+              <Image
+                src="/amanDpCropped.png"
+                alt="Aman - Co-Founder"
+                width={144}
+                height={144}
+                className="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600"
               />
             </div>
             <h3 className="text-xl font-semibold mb-2 text-amber-900 dark:text-neutral-200">
@@ -194,14 +194,14 @@ export default function AboutPage() {
               {language === "hi" ? "सह-संस्थापक" : "Co-Founder"}
             </p>
           </div>
-          <div className="text-center">
+          <div className="text-center last:col-span-full last:justify-self-center">
             <div className="">
-              <Image 
-                src="/subodhDp.png" 
-                alt="Subodh - Product Manager" 
-                width={96} 
-                height={96} 
-                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600" 
+              <Image
+                src="/subodhDpCropped.png"
+                alt="Subodh - Product Manager"
+                width={144}
+                height={144}
+                className="w-36 h-36 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600"
               />
             </div>
             <h3 className="text-xl font-semibold mb-2 text-amber-900 dark:text-neutral-200">
