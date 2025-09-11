@@ -3,6 +3,7 @@
 import React from "react";
 import { useLanguage } from "@/lib/i18n";
 import ImageGallery from "@/components/ImageGallery";
+import Image from "next/image";
 
 export default function AboutPage() {
   const { language } = useLanguage();
@@ -49,7 +50,7 @@ export default function AboutPage() {
           {language === "hi" ? "हमारे बारे में" : "About Us"}
         </h1>
         <p className="text-xl text-amber-700 dark:text-neutral-400 max-w-3xl mx-auto">
-          {language === "hi" 
+          {language === "hi"
             ? "सरल, टिकाऊ और प्राकृतिक - यही है हमारा मिशन"
             : "Simple, Sustainable, and Natural - That's our mission"
           }
@@ -64,7 +65,7 @@ export default function AboutPage() {
               {language === "hi" ? "हमारी कहानी" : "Our Story"}
             </h2>
             <p className="text-amber-700 dark:text-neutral-400 mb-4 leading-relaxed">
-              {language === "hi" 
+              {language === "hi"
                 ? "सरल नेचुरल्स की शुरुआत एक सरल विचार से हुई - प्रकृति के साथ सामंजस्य बनाकर रहना और ऐसे उत्पाद बनाना जो न केवल अच्छे हों बल्कि हमारे ग्रह के लिए भी अच्छे हों।"
                 : "Saral Naturals began with a simple idea - to live in harmony with nature and create products that are not only good for us but also good for our planet."
               }
@@ -143,33 +144,68 @@ export default function AboutPage() {
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
           <div className="text-center">
-            <div className="w-24 h-24 bg-amber-200 dark:bg-neutral-700 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-2xl font-bold text-amber-800 dark:text-neutral-300">A</span>
+            <div className="">
+              <Image 
+                src="/priyankaDp.png" 
+                alt="Priyanka - CEO" 
+                width={96} 
+                height={96} 
+                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600" 
+              />
             </div>
             <h3 className="text-xl font-semibold mb-2 text-amber-900 dark:text-neutral-200">
-              {language === "hi" ? "अमित शर्मा" : "Amit Sharma"}
+              {language === "hi" ? "प्रियंका" : "Priyanka"}
             </h3>
             <p className="text-amber-700 dark:text-neutral-400">
-              {language === "hi" ? "संस्थापक और CEO" : "Founder & CEO"}
+              {language === "hi" ? "CEO" : "CEO"}
             </p>
           </div>
           <div className="text-center">
-            <div className="w-24 h-24 bg-amber-200 dark:bg-neutral-700 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-2xl font-bold text-amber-800 dark:text-neutral-300">P</span>
+            <div className="">
+              <Image 
+                src="/vijayDp.png" 
+                alt="Vijay - Co-Founder" 
+                width={96} 
+                height={96} 
+                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600" 
+              />
             </div>
             <h3 className="text-xl font-semibold mb-2 text-amber-900 dark:text-neutral-200">
-              {language === "hi" ? "प्रिया पटेल" : "Priya Patel"}
+              {language === "hi" ? "विजय" : "Vijay"}
             </h3>
             <p className="text-amber-700 dark:text-neutral-400">
-              {language === "hi" ? "कृषि निदेशक" : "Agriculture Director"}
+              {language === "hi" ? "सह-संस्थापक" : "Co-Founder"}
             </p>
           </div>
           <div className="text-center">
-            <div className="w-24 h-24 bg-amber-200 dark:bg-neutral-700 rounded-full mx-auto mb-4 flex items-center justify-center">
-              <span className="text-2xl font-bold text-amber-800 dark:text-neutral-300">R</span>
+            <div className="">
+              <Image 
+                src="/amanDp.jpg" 
+                alt="Aman - Co-Founder" 
+                width={96} 
+                height={96} 
+                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600" 
+              />
             </div>
             <h3 className="text-xl font-semibold mb-2 text-amber-900 dark:text-neutral-200">
-              {language === "hi" ? "राहुल वर्मा" : "Rahul Verma"}
+              {language === "hi" ? "अमन" : "Aman"}
+            </h3>
+            <p className="text-amber-700 dark:text-neutral-400">
+              {language === "hi" ? "सह-संस्थापक" : "Co-Founder"}
+            </p>
+          </div>
+          <div className="text-center">
+            <div className="">
+              <Image 
+                src="/subodhDp.png" 
+                alt="Subodh - Product Manager" 
+                width={96} 
+                height={96} 
+                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-amber-200 dark:border-neutral-600" 
+              />
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-amber-900 dark:text-neutral-200">
+              {language === "hi" ? "सुबोध" : "Subodh"}
             </h3>
             <p className="text-amber-700 dark:text-neutral-400">
               {language === "hi" ? "उत्पाद प्रबंधक" : "Product Manager"}
@@ -191,8 +227,8 @@ export default function AboutPage() {
             }
           </p>
         </div>
-        <ImageGallery 
-          images={galleryImages} 
+        <ImageGallery
+          images={galleryImages}
           autoScrollInterval={4000}
           showTitles={true}
         />
